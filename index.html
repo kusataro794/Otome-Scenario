@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f1f3" />
+  <meta name="description" content="乙女ゲーム『透明な境界線（仮）』Scenario Library。共通ルートから個別ルートまで、シナリオ全文をスマートフォンで読みやすく公開しています。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="透明な境界線（仮）｜Scenario Library" />
+  <meta property="og:description" content="義弟・玲央と幼馴染・湊。近すぎた二つの関係が、ある出来事を境に少しずつ形を変えていく。" />
+  <meta property="og:locale" content="ja_JP" />
+  <title>透明な境界線（仮）｜Scenario Library</title>
+  <style>
+    :root{
+      --bg:#f8f4f5;--surface:rgba(255,255,255,.91);--surface-strong:#fff;--surface-soft:#f4ecef;
+      --text:#302a2d;--muted:#81777c;--muted-2:#a0959a;--line:#e9dfe2;
+      --accent:#9d6472;--accent-deep:#774a56;--common:#7c6871;--reo:#8a5873;--minato:#506f7e;
+      --shadow:0 14px 38px rgba(74,52,60,.08);--radius-lg:22px;--radius-md:16px;--max-width:790px;
+      --sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;color:var(--text);background:
+      radial-gradient(circle at 10% 3%,rgba(178,120,137,.16),transparent 28rem),
+      radial-gradient(circle at 100% 23%,rgba(88,119,133,.11),transparent 25rem),var(--bg);
+      font-family:var(--sans);line-height:1.82;-webkit-font-smoothing:antialiased}
+    a{color:inherit}button,a{-webkit-tap-highlight-color:transparent}
+    .page{width:min(100%,var(--max-width));margin:0 auto;padding:max(22px,env(safe-area-inset-top)) 18px max(70px,env(safe-area-inset-bottom))}
+    .hero{position:relative;overflow:hidden;margin:8px 0 28px;padding:64px 24px 48px;text-align:center;border:1px solid rgba(255,255,255,.78);border-radius:36px;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(249,238,242,.87));box-shadow:var(--shadow)}
+    .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+    .hero:before{width:220px;height:220px;top:-120px;right:-70px;background:rgba(157,100,114,.09)}
+    .hero:after{width:145px;height:145px;bottom:-75px;left:-60px;background:rgba(80,111,126,.08)}
+    .eyebrow{position:relative;z-index:1;margin:0 0 11px;color:var(--accent);font-size:.72rem;font-weight:900;letter-spacing:.22em}
+    .hero h1{position:relative;z-index:1;margin:0;font-family:var(--serif);font-size:clamp(2rem,9vw,3.35rem);font-weight:500;line-height:1.35;letter-spacing:.08em}
+    .hero-subtitle{position:relative;z-index:1;margin:14px 0 0;color:var(--muted);font-size:.82rem;letter-spacing:.11em}
+    .hero-line{position:relative;z-index:1;width:42px;height:1px;margin:31px auto;background:var(--accent);opacity:.5}
+    .hero-copy{position:relative;z-index:1;max-width:35rem;margin:0 auto;font-family:var(--serif);font-size:.97rem;line-height:2.08;letter-spacing:.02em}
+    .hero-copy strong{font-weight:600}
+    .hero-actions{position:relative;z-index:1;display:grid;gap:10px;width:min(100%,380px);margin:34px auto 0}
+    .button{display:flex;align-items:center;justify-content:center;min-height:53px;padding:12px 19px;border-radius:999px;text-decoration:none;font-size:.9rem;font-weight:850;letter-spacing:.035em;transition:transform .16s ease}
+    .button:active{transform:scale(.985)}.button-primary{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-deep));box-shadow:0 10px 28px rgba(119,74,86,.24)}
+    .button-secondary{color:var(--accent-deep);background:rgba(255,255,255,.78);border:1px solid var(--line)}
+    .section{margin-top:46px;scroll-margin-top:18px}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:15px}
+    .section-head h2{margin:0;font-size:1.2rem;letter-spacing:.045em}.section-head span{color:var(--muted);font-size:.68rem;font-weight:800;letter-spacing:.14em;white-space:nowrap}
+    .panel{padding:22px;border:1px solid rgba(255,255,255,.76);border-radius:var(--radius-lg);background:var(--surface);box-shadow:var(--shadow);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+    .concept p{margin:0;color:#61575c;font-size:.92rem}.concept p+p{margin-top:14px}.concept strong{color:var(--text)}
+    .theme-pair{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px}.theme-chip{padding:14px 12px;border-radius:14px;text-align:center;background:var(--surface-soft)}
+    .theme-chip small{display:block;margin-bottom:3px;color:var(--muted);font-size:.62rem;font-weight:900;letter-spacing:.12em}.theme-chip strong{display:block;font-family:var(--serif);font-size:.86rem;font-weight:600}
+    .reading-order{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:18px;color:var(--muted);font-size:.72rem;font-weight:800}.reading-order .step{padding:7px 10px;color:var(--accent-deep);border-radius:999px;background:var(--surface-soft)}
+    .story-flow{display:grid;gap:12px}.story-card{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:start;padding:19px;border:1px solid rgba(255,255,255,.8);border-radius:var(--radius-lg);color:inherit;background:var(--surface-strong);box-shadow:var(--shadow);text-decoration:none;transition:transform .16s ease}
+    .story-card:active{transform:scale(.992)}.story-number{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--common);background:#f2eaed;font-size:.7rem;font-weight:900;letter-spacing:.06em}
+    .story-main{min-width:0}.story-label{display:block;margin-bottom:4px;color:var(--common);font-size:.62rem;font-weight:900;letter-spacing:.13em}
+    .story-card h3{margin:0;font-family:var(--serif);font-size:1.02rem;font-weight:650;line-height:1.55}.story-card p{margin:7px 0 0;color:var(--muted);font-size:.76rem;line-height:1.75}
+    .story-arrow{align-self:center;color:var(--muted-2);font-size:1.1rem}.flow-divider{display:grid;place-items:center;height:18px;color:#c4b9be;font-size:.65rem}
+    .turning-card{position:relative;overflow:hidden;padding:27px 21px;border-radius:26px;color:#fff;background:linear-gradient(135deg,rgba(132,82,104,.98),rgba(75,102,116,.96));box-shadow:0 16px 40px rgba(73,55,65,.18)}
+    .turning-card:after{content:"";position:absolute;width:150px;height:150px;right:-64px;bottom:-82px;border:1px solid rgba(255,255,255,.18);border-radius:50%}
+    .turning-card small{display:block;margin-bottom:7px;color:rgba(255,255,255,.72);font-size:.65rem;font-weight:900;letter-spacing:.15em}.turning-card h3{margin:0;font-family:var(--serif);font-size:1.22rem;font-weight:600}
+    .turning-card p{position:relative;z-index:1;margin:11px 0 0;max-width:34rem;color:rgba(255,255,255,.82);font-size:.8rem;line-height:1.8}.turning-link{position:relative;z-index:1;display:inline-flex;margin-top:18px;padding:9px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff;background:rgba(255,255,255,.11);text-decoration:none;font-size:.73rem;font-weight:850}
+    .route-grid{display:grid;gap:14px}.route-card{position:relative;overflow:hidden;padding:24px;border:1px solid rgba(255,255,255,.82);border-radius:27px;background:var(--surface-strong);box-shadow:var(--shadow)}
+    .route-card:after{content:"";position:absolute;width:145px;height:145px;top:-68px;right:-62px;border-radius:50%;background:currentColor;opacity:.075;pointer-events:none}.route-card.reo{color:var(--reo)}.route-card.minato{color:var(--minato)}
+    .route-kicker{margin:0 0 7px;font-size:.65rem;font-weight:950;letter-spacing:.16em}.route-card h3{margin:0;color:var(--text);font-family:var(--serif);font-size:1.3rem;font-weight:650}
+    .route-quote{margin:13px 0 0;color:#62575d;font-family:var(--serif);font-size:.9rem;line-height:1.9}.route-summary{margin:15px 0 0;color:var(--muted);font-size:.76rem;line-height:1.8}
+    .route-list{display:grid;gap:8px;margin-top:20px}.route-item{display:grid;grid-template-columns:33px 1fr;gap:10px;padding-top:9px;border-top:1px solid #f0e8eb;color:#655b60;font-size:.74rem}.route-item span:first-child{color:currentColor;font-weight:900}
+    .route-action{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:21px;padding-top:16px;border-top:1px solid #f0e8eb;color:currentColor;text-decoration:none;font-size:.8rem;font-weight:900}.route-action.disabled{color:var(--muted-2);cursor:default}
+    .character-list{display:grid;gap:11px}.character{display:grid;grid-template-columns:50px 1fr;gap:14px;padding:17px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.66)}
+    .character-mark{display:grid;place-items:center;width:50px;height:50px;border-radius:50%;color:var(--accent-deep);background:var(--surface-soft);font-family:var(--serif);font-weight:700}.character h3{margin:0;font-size:.94rem}.character p{margin:5px 0 0;color:var(--muted);font-size:.76rem;line-height:1.72}
+    .update-list{margin:0;padding:0;list-style:none}.update-list li{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.78rem}.update-list li:last-child{border-bottom:0}.update-list time{color:var(--muted);font-variant-numeric:tabular-nums}
+    .notice{color:#71666b;font-size:.75rem;line-height:1.82}.notice strong{color:var(--text)}
+    footer{margin-top:56px;padding:30px 8px 8px;color:#9a8f94;text-align:center;font-size:.69rem;line-height:1.8}footer a{text-underline-offset:3px}
+    @media(min-width:700px){.page{padding-left:28px;padding-right:28px}.hero{padding:80px 50px 59px}.hero-actions{grid-template-columns:1fr 1fr;width:min(100%,520px)}.route-grid{grid-template-columns:1fr 1fr}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.story-card{transition:none}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <p class="eyebrow">OTOME GAME SCENARIO LIBRARY</p>
+    <h1>透明な境界線<span aria-hidden="true">（仮）</span></h1>
+    <p class="hero-subtitle">— 家族と幼馴染。その境界が、恋に変わるまで。—</p>
+    <div class="hero-line"></div>
+    <p class="hero-copy">
+      少し天然で、身近な人の好意には驚くほど鈍い大学生・<strong>結衣</strong>。<br>
+      彼女のそばには、幼い頃から家族として生きてきた義弟・<strong>玲央</strong>と、
+      ずっと一歩引いた場所から見守ってきた幼馴染・<strong>湊</strong>がいる。<br><br>
+      変わらないはずだった日常は、ある出来事を境に少しずつ揺らぎ始める。<br>
+      「守りたい」という同じ言葉の奥にある、まったく違う二つの愛。<br>
+      結衣がその意味に気づいたとき、三人の関係はもう以前と同じではいられない。
+    </p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="common/intro.html">最初から読む</a>
+      <a class="button button-secondary" href="#scenario">シナリオ一覧を見る</a>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="about-title">
+    <div class="section-head"><h2 id="about-title">この物語について</h2><span>ABOUT</span></div>
+    <div class="panel concept">
+      <p>本作の中心にあるのは、<strong>「近すぎる愛」と「近づききれない愛」</strong>の対比です。玲央は結衣を必要とするほど距離を縮め、湊は結衣を大切にするほど、その選択を尊重して一歩引こうとします。</p>
+      <p>共通ルートでは、事件をきっかけに二人の感情が少しずつ表面化。その後の日常を通して、結衣自身も「弟」「幼馴染」として片づけていた二人を、初めて異性として意識し始めます。</p>
+      <div class="theme-pair">
+        <div class="theme-chip"><small>REO</small><strong>近すぎる愛</strong></div>
+        <div class="theme-chip"><small>MINATO</small><strong>待ち続ける愛</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="guide-title">
+    <div class="section-head"><h2 id="guide-title">はじめて読む方へ</h2><span>READING GUIDE</span></div>
+    <div class="panel concept">
+      <p>初回は上から順番に読むことをおすすめします。共通ルートの最後にある <strong>TURNING POINT</strong> から、玲央・湊それぞれの個別ルートへ物語が分かれます。</p>
+      <div class="reading-order">
+        <span class="step">INTRO</span><span>→</span><span class="step">INCIDENT</span><span>→</span><span class="step">AFTER</span><span>→</span><span class="step">EVERYDAY</span><span>→</span><span class="step">TURNING POINT</span><span>→</span><span class="step">ROUTE</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="scenario" aria-labelledby="common-title">
+    <div class="section-head"><h2 id="common-title">共通ルート</h2><span>COMMON ROUTE</span></div>
+    <div class="story-flow">
+      <a class="story-card" href="common/intro.html"><div class="story-number">01</div><div class="story-main"><span class="story-label">INTRODUCTION</span><h3>いつも通りの、朝だった。</h3><p>結衣、玲央、湊。三人にとって当たり前だった日常と、まだ名前のついていない感情を描く導入編。</p></div><div class="story-arrow">›</div></a>
+      <div class="flow-divider">↓</div>
+      <a class="story-card" href="common/incident.html"><div class="story-number">02</div><div class="story-main"><span class="story-label">INCIDENT</span><h3>日常が、少しだけ壊れる。</h3><p>ある出来事をきっかけに、二人の「守りたい」が表面へ。同じ優しさに見えていた感情の違いが、初めて輪郭を持ち始める。</p></div><div class="story-arrow">›</div></a>
+      <div class="flow-divider">↓</div>
+      <a class="story-card" href="common/after-incident.html"><div class="story-number">03</div><div class="story-main"><span class="story-label">AFTER INCIDENT</span><h3>事件のあと。</h3><p>事件は終わっても、揺れた距離は元に戻らない。玲央の「そばにいたい」と、湊の「無理に踏み込まない」が鮮明になっていく。</p></div><div class="story-arrow">›</div></a>
+      <div class="flow-divider">↓</div>
+      <a class="story-card" href="common/everyday.html"><div class="story-number">04</div><div class="story-main"><span class="story-label">EVERYDAY</span><h3>近すぎる人、遠すぎる人。</h3><p>日常へ戻ったからこそ見えてくる違和感。結衣への距離をさらに縮める玲央と、想いを抱えながら一歩引く湊。</p></div><div class="story-arrow">›</div></a>
+      <div class="flow-divider">↓</div>
+      <div class="turning-card"><small>05 / COMMON ROUTE FINAL</small><h3>TURNING POINT</h3><p>「弟」と「幼馴染」だった二人を、結衣が初めて別の存在として意識する共通ルート終盤。ここから、選んだ相手との物語へ進みます。</p><a class="turning-link" href="common/turning-point.html">TURNING POINTを読む →</a></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="routes-title">
+    <div class="section-head"><h2 id="routes-title">個別ルート</h2><span>CHARACTER ROUTES</span></div>
+    <div class="route-grid">
+      <article class="route-card reo">
+        <p class="route-kicker">REO ROUTE</p><h3>玲央 Route</h3>
+        <p class="route-quote">「ずっと一緒にいるって、姉さんが言ったんだよ」</p>
+        <p class="route-summary">結衣を「自分を見つけてくれた最初の人」として誰より特別に思う玲央。優しさ、確認、嫉妬、そして「離れたくない」という願いが、少しずつ愛と依存の境界を曖昧にしていくルート。</p>
+        <div class="route-list">
+          <div class="route-item"><span>01</span><span>STAY WITH ME</span></div>
+          <div class="route-item"><span>02</span><span>NOT YOUR BROTHER</span></div>
+          <div class="route-item"><span>03</span><span>ONLY MINE</span></div>
+          <div class="route-item"><span>04</span><span>SWEET CAGE</span></div>
+          <div class="route-item"><span>05</span><span>FOREVER</span></div>
+        </div>
+        <a class="route-action" href="reo/01-stay-with-me.html"><span>玲央ルートを読む</span><span>→</span></a>
+      </article>
+
+      <article class="route-card minato">
+        <p class="route-kicker">MINATO ROUTE</p><h3>湊 Route</h3>
+        <p class="route-quote">「お前が選ぶまで、俺は勝手に待ってる」</p>
+        <p class="route-summary">ずっと結衣の隣にいながら、関係を壊すことを恐れて想いを飲み込んできた湊。「守るために近づく」のではなく、「大切だから選択を奪わない」純愛を軸に描くルート。</p>
+        <div class="route-list">
+          <div class="route-item"><span>01</span><span>個別ルート導入</span></div>
+          <div class="route-item"><span>02</span><span>Coming Soon</span></div>
+          <div class="route-item"><span>03</span><span>Coming Soon</span></div>
+        </div>
+        <span class="route-action disabled"><span>湊ルート</span><span>準備中</span></span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="characters-title">
+    <div class="section-head"><h2 id="characters-title">登場人物</h2><span>CHARACTERS</span></div>
+    <div class="panel"><div class="character-list">
+      <div class="character"><div class="character-mark">結</div><div><h3>結衣｜主人公</h3><p>19歳の大学生。普段は少し天然で、気が抜けるとすぐ自分の世界へ。家事は苦手で、趣味は乙女ゲームと動画鑑賞。誰かが本当に傷ついているときだけ驚くほど勘が鋭く、怖くてもその人を一人にしない。</p></div></div>
+      <div class="character"><div class="character-mark">玲</div><div><h3>玲央｜義弟</h3><p>両親の再婚によって幼い頃に家族になった義弟。弱かった自分を守ってくれた結衣を、誰より強く信じている。世話焼きで優しい弟に見える一方、その「特別でいたい」という願いは深い。</p></div></div>
+      <div class="character"><div class="character-mark">湊</div><div><h3>湊｜幼馴染</h3><p>結衣のすぐそばで育ってきた幼馴染。彼女を大切に思うからこそ無理に踏み込まず、ずっと「友達」の距離を守ってきた。しかし玲央との距離が変わるにつれ、少しずつ我慢ができなくなっていく。</p></div></div>
+    </div></div>
+  </section>
+
+  <section class="section" aria-labelledby="update-title">
+    <div class="section-head"><h2 id="update-title">更新情報</h2><span>UPDATE</span></div>
+    <div class="panel"><ul class="update-list">
+      <li><time datetime="2026-08-18">2026.08.18</time><span>最新シナリオ構成に合わせてScenario Libraryを更新</span></li>
+      <li><time datetime="2026-08-17">2026.08.17</time><span>TURNING POINT / 玲央ルート構成を追加</span></li>
+      <li><time datetime="2026-08-16">2026.08.16</time><span>AFTER INCIDENT / EVERYDAYを共通ルートへ追加</span></li>
+    </ul></div>
+  </section>
+
+  <section class="section" aria-labelledby="notice-title">
+    <div class="section-head"><h2 id="notice-title">閲覧について</h2><span>NOTICE</span></div>
+    <div class="panel notice"><strong>本サイトはシナリオ共有・レビュー用のScenario Libraryです。</strong><br>各ページにはストーリー上のネタバレが含まれます。初回閲覧では共通ルートを上から順番に読み、TURNING POINT読了後に個別ルートへ進むことを推奨します。</div>
+  </section>
+
+  <footer><p>© 2026 透明な境界線（仮） Scenario Project</p><p><a href="#scenario">シナリオ一覧へ戻る</a></p></footer>
+</main>
+</body>
+</html>
