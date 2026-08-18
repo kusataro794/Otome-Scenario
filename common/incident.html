@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ja" data-font="serif" data-size="medium" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8f3f4">
+<title>COMMON ROUTE / INCIDENT ― なくした鍵【閲覧版】</title>
+<style>
+:root{
+  --page:#f8f3f4;--surface:rgba(255,255,255,.92);--surface-soft:#f3ebee;--text:#332d30;
+  --text-soft:#6f656a;--muted:#9b8f94;--line:#eadfe3;--accent:#9b6171;--accent-deep:#754653;
+  --yui:#9a6c79;--reo:#8c5874;--minato:#4f7080;--note-bg:#f4eff1;
+  --shadow:0 14px 40px rgba(77,56,63,.08);--radius-xl:30px;--radius-lg:22px;--radius-md:15px;
+  --reader-width:680px;--font-size:17px;--body-leading:2.08;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+}
+html[data-theme="dark"]{--page:#171417;--surface:rgba(35,30,34,.94);--surface-soft:#2d262a;--text:#f1eaed;--text-soft:#c3b8bd;--muted:#8f8288;--line:#3b3237;--accent:#d09aaa;--accent-deep:#e4b2c0;--yui:#d09aaa;--reo:#d590b3;--minato:#8ab6c9;--note-bg:#282226;--shadow:0 14px 40px rgba(0,0,0,.22)}
+html[data-theme="sepia"]{--page:#f3ecdf;--surface:rgba(253,249,240,.94);--surface-soft:#ebe0cf;--text:#40372f;--text-soft:#71675c;--muted:#9a8d80;--line:#dfd1bd;--accent:#8e655a;--accent-deep:#68493f;--yui:#8f665c;--reo:#825c6b;--minato:#536c72;--note-bg:#ebe1d3}
+html[data-font="sans"]{--reader-font:var(--sans)}html[data-font="serif"]{--reader-font:var(--serif)}
+html[data-size="small"]{--font-size:15.5px}html[data-size="medium"]{--font-size:17px}html[data-size="large"]{--font-size:19px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--page)}
+body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(circle at 8% 2%,rgba(166,108,124,.12),transparent 26rem),radial-gradient(circle at 95% 28%,rgba(79,112,128,.08),transparent 25rem),var(--page);font-family:var(--sans);-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
+a{color:inherit}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}
+.reading-progress{position:fixed;inset:0 0 auto 0;z-index:1000;height:3px;background:transparent}.reading-progress>span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),var(--minato));transition:width .08s linear}
+.reader-bar{position:sticky;top:0;z-index:800;min-height:62px;border-bottom:1px solid color-mix(in srgb,var(--line) 80%,transparent);background:color-mix(in srgb,var(--page) 90%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.reader-bar-inner{width:min(1080px,100%);min-height:62px;margin:0 auto;padding:max(7px,env(safe-area-inset-top)) 13px 7px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.reader-id{min-width:0;display:flex;align-items:center;gap:9px}.back-link{display:grid;place-items:center;width:38px;height:38px;flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:var(--surface);text-decoration:none;font-weight:900}
+.reader-kicker{display:block;margin-bottom:1px;overflow:hidden;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.12em;text-overflow:ellipsis;white-space:nowrap}.reader-title{display:block;overflow:hidden;font-family:var(--reader-font,var(--serif));font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
+.reader-actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}
+.tool-btn,.tool-select{min-height:40px;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;box-shadow:0 5px 18px rgba(40,30,34,.04);font-family:var(--sans);font-size:11px;font-weight:800}.tool-btn{min-width:40px;padding:0 10px;cursor:pointer}.tool-btn.active{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,var(--line));background:color-mix(in srgb,var(--surface-soft) 78%,var(--surface))}.tool-select{padding:0 10px}
+.layout{width:min(1080px,100%);margin:0 auto;display:grid;grid-template-columns:220px minmax(0,780px);gap:28px;padding:24px 0 0;align-items:start;justify-content:center}
+.toc{position:sticky;top:82px;max-height:calc(100svh - 104px);overflow:auto;margin-left:16px;padding:14px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);box-shadow:var(--shadow);font-family:var(--sans)}.toc-label{margin:0 0 10px;color:var(--muted);font-size:10px;font-weight:900;letter-spacing:.16em}.toc a{display:block;margin:3px 0;padding:8px 9px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:12px;line-height:1.45}.toc a:hover,.toc a.active{color:var(--accent);background:var(--surface-soft);font-weight:800}
+.reader-shell{min-width:0}.resume-card{display:none;width:min(100% - 36px,680px);margin:0 auto 18px;padding:13px 14px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);box-shadow:var(--shadow);color:var(--muted);font-family:var(--sans);font-size:12px;line-height:1.7}.resume-card.show{display:flex;justify-content:space-between;align-items:center;gap:12px}.current-scene-chip{display:none;width:min(100% - 36px,680px);margin:0 auto 10px;color:var(--muted);font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:.08em}
+.page{width:min(100%,780px);margin:0 auto;padding:0 18px max(80px,env(safe-area-inset-bottom))}.reader{width:min(100%,var(--reader-width));margin:0 auto;font-family:var(--reader-font,var(--serif));font-size:var(--font-size);line-height:var(--body-leading);letter-spacing:.025em}
+.hero{position:relative;overflow:hidden;margin:24px 0 34px;padding:52px 24px 44px;text-align:center;border:1px solid rgba(255,255,255,.56);border-radius:var(--radius-xl);background:linear-gradient(150deg,color-mix(in srgb,var(--surface) 96%,transparent),color-mix(in srgb,var(--surface-soft) 90%,transparent));box-shadow:var(--shadow)}.hero::before{content:"";position:absolute;width:210px;height:210px;top:-122px;right:-64px;border-radius:50%;background:color-mix(in srgb,var(--accent) 14%,transparent)}.hero::after{content:"";position:absolute;width:145px;height:145px;left:-84px;bottom:-76px;border-radius:50%;background:color-mix(in srgb,var(--minato) 12%,transparent)}.hero>*{position:relative;z-index:1}.eyebrow{margin:0 0 14px;color:var(--accent);font-family:var(--sans);font-size:10px;font-weight:900;letter-spacing:.2em}.hero h1{margin:0;font-family:var(--serif);font-size:clamp(2rem,8vw,3.4rem);font-weight:600;line-height:1.35;letter-spacing:.08em}.subtitle{margin:14px 0 0;color:var(--muted);font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:.1em}.hero-copy{max-width:29rem;margin:30px auto 0;color:var(--text-soft);font-size:14px;line-height:2.05}.hero-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:25px}.mini-link{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-family:var(--sans);font-size:10px;font-weight:800;text-decoration:none}
+.reading-note{margin:0 0 44px;padding:13px 15px;border:1px solid var(--line);border-radius:var(--radius-md);color:var(--text-soft);background:var(--note-bg);font-family:var(--sans);font-size:11px;line-height:1.8}
+.scene{padding-top:35px;margin-bottom:76px;scroll-margin-top:84px}.scene-head{margin-bottom:38px;text-align:center}.scene-no{display:block;color:var(--accent);font-family:var(--sans);font-size:10px;font-weight:900;letter-spacing:.22em}.scene-head h2{margin:8px 0 0;font-family:var(--serif);font-size:1.25em;font-weight:600;letter-spacing:.08em}.scene-rule{width:38px;height:1px;margin:18px auto 0;background:var(--line)}
+.narration{margin:0 0 1.35em;text-align:justify;text-justify:inter-ideograph;white-space:normal}.dialogue{margin:2em 0 2.15em;padding-left:2px}.speaker{display:flex;align-items:center;gap:8px;margin-bottom:.45em;font-family:var(--sans);font-size:.7em;font-weight:900;letter-spacing:.08em}.speaker::before{content:"";width:18px;height:2px;border-radius:99px;background:currentColor;opacity:.55}.dialogue.yui .speaker{color:var(--yui)}.dialogue.reo .speaker{color:var(--reo)}.dialogue.minato .speaker{color:var(--minato)}.line{margin:0;padding-left:1.35em;text-indent:-1.35em;font-weight:500}
+.message{width:min(92%,410px);margin:2.1em auto;padding:15px 17px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:0 8px 24px rgba(50,40,44,.04);font-family:var(--sans);font-size:.77em;line-height:1.75}.message small{display:block;margin-bottom:6px;color:var(--muted);font-weight:800}
+.choice-block{margin:3.1em 0 3.5em;padding:18px;border:1px solid var(--line);border-radius:var(--radius-lg);background:color-mix(in srgb,var(--surface-soft) 58%,transparent);font-family:var(--sans)}.choice-kicker{color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.18em}.choice-block h3{margin:7px 0 5px;font-family:var(--serif);font-size:1rem;font-weight:600;line-height:1.7}.choice-note{margin:0 0 15px;color:var(--muted);font-size:10px;line-height:1.8}.branch-grid{display:grid;gap:10px}.branch-card{margin:0;border:0;background:transparent}.branch-label{display:flex;width:100%;align-items:center;gap:9px;min-height:48px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;color:var(--text);background:var(--surface);font-size:12px;font-weight:800;cursor:pointer;list-style:none}.branch-label::-webkit-details-marker{display:none}.branch-label::after{content:"＋";margin-left:auto;color:var(--muted);font-size:15px;font-weight:500}.branch-card[open]>.branch-label{border-color:color-mix(in srgb,var(--accent) 48%,var(--line));color:var(--accent-deep);background:color-mix(in srgb,var(--surface-soft) 72%,var(--surface))}.branch-card[open]>.branch-label::after{content:"−"}.branch-no{display:grid;place-items:center;width:24px;height:24px;flex:0 0 auto;border:1px solid var(--line);border-radius:50%;color:var(--accent);background:var(--surface-soft);font-size:9px}.branch-body{margin:9px 4px 3px;padding:19px 17px 5px;border-left:2px solid color-mix(in srgb,var(--accent) 35%,transparent);font-family:var(--reader-font,var(--serif));font-size:var(--font-size);line-height:var(--body-leading)}.merge-note{margin-top:20px;padding-top:13px;border-top:1px dashed var(--line);color:var(--muted);text-align:center;font-size:10px;font-weight:900;letter-spacing:.1em}
+.ending{margin:95px 0 30px;padding:65px 24px 42px;text-align:center;border:1px solid var(--line);border-radius:32px;background:linear-gradient(150deg,var(--surface),var(--surface-soft));box-shadow:var(--shadow)}.ending-mark{margin-bottom:28px;color:var(--muted);font-size:13px;letter-spacing:.45em}.ending h2{margin:0;color:var(--accent);font-family:var(--sans);font-size:11px;font-weight:900;letter-spacing:.22em}.ending-title{margin:12px 0 0;font-family:var(--serif);font-size:clamp(1.55rem,7vw,2.15rem);line-height:1.55;letter-spacing:.07em}.ending-copy{margin:33px auto 0;max-width:30rem;font-family:var(--serif);font-size:14px;line-height:2.15}.next-label{margin-top:45px;color:var(--muted);font-family:var(--sans);font-size:10px;font-weight:900;letter-spacing:.2em}.next-title{margin:8px 0 20px;font-family:var(--serif);font-size:1.05rem}.ending-actions{display:grid;gap:10px;width:min(100%,350px);margin:0 auto}.primary-button,.secondary-button{display:flex;align-items:center;justify-content:center;min-height:53px;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:800}.primary-button{border:0;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-deep));box-shadow:0 10px 28px color-mix(in srgb,var(--accent) 26%,transparent)}.secondary-button{color:var(--text-soft);border:1px solid var(--line);background:var(--surface)}footer{padding:30px 10px 0;color:var(--muted);font-family:var(--sans);font-size:10px;line-height:2;text-align:center}
+@media(max-width:900px){.layout{display:block;width:100%;padding-top:16px}.toc{display:none}.current-scene-chip{display:block}}
+@media(max-width:620px){.reader-bar-inner{align-items:flex-start;padding-left:10px;padding-right:10px}.reader-id{padding-top:1px}.reader-title{max-width:24vw}.reader-actions{gap:4px}.tool-btn,.tool-select{min-height:34px;font-size:10px}.tool-btn{min-width:34px;padding:0 8px}.page{padding-left:18px;padding-right:18px}.hero{margin-top:14px;padding:44px 20px 38px}.choice-block{padding:14px 12px}.branch-body{padding-left:9px;padding-right:9px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="reading-progress" aria-hidden="true"><span id="progressBar"></span></div>
+<header class="reader-bar">
+  <div class="reader-bar-inner">
+    <div class="reader-id">
+      <a class="back-link" href="intro_latest.html" aria-label="イントロへ戻る">←</a>
+      <div>
+        <div class="reader-kicker">COMMON ROUTE / READER</div>
+        <div class="reader-title">なくした鍵</div>
+      </div>
+    </div>
+    <div class="reader-actions">
+      <button class="tool-btn" id="fontBtn" type="button">明朝</button>
+      <button class="tool-btn" data-size="small" type="button">小</button>
+      <button class="tool-btn active" data-size="medium" type="button">中</button>
+      <button class="tool-btn" data-size="large" type="button">大</button>
+      <select class="tool-select" id="themeSelect" aria-label="表示テーマ">
+        <option value="light">Light</option>
+        <option value="sepia">Sepia</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="シーン目次">
+    <p class="toc-label">SCENE INDEX</p>
+    <a href="#scene-01">01　翌朝 ―― なくしたもの</a><a href="#scene-02">02　大学 ―― 笑わせる人</a><a href="#scene-03">03　視線 ―― 昨日より近い</a><a href="#scene-04">04　二つの守り方</a><a href="#scene-05">05　帰り道 ―― 近い人、遠い人</a><a href="#scene-06">06　部屋 ―― 返された鍵</a><a href="#scene-07">07　怖かった人</a><a href="#scene-08">08　事件の名前</a><a href="#scene-09">09　言わない人</a><a href="#scene-10">10　約束を覚えている人</a>
+  </nav>
+  <div class="reader-shell">
+    <div class="resume-card" id="resumeCard">
+      <span>前回読んでいた位置があります。</span>
+      <button class="tool-btn" id="resumeBtn" type="button">続きから</button>
+    </div>
+    <div class="current-scene-chip" id="currentScene">SCENE 01</div>
+
+    <main class="page">
+      <article class="reader">
+        <section class="hero">
+          <p class="eyebrow">COMMON ROUTE / INCIDENT</p>
+          <h1>なくした鍵</h1>
+          <p class="subtitle">READER EDITION / 全分岐掲載</p>
+          <p class="hero-copy">
+            昨日まで画面の向こうにしかなかった視線が、<br>
+            なくした鍵を境に、結衣の生活へ踏み込んでくる。<br><br>
+            守るために近づく玲央。<br>
+            守るために一歩引く湊。<br><br>
+            同じ優しさが、初めて違う形を見せる事件編。
+          </p>
+          <div class="hero-actions">
+            <a class="mini-link" href="../index.html">TOP</a>
+            <a class="mini-link" href="intro_latest.html">INTRO</a>
+            <a class="mini-link" href="after-incident.html">AFTER INCIDENT</a>
+          </div>
+        </section>
+
+        <div class="reading-note">
+          このページは閲覧専用です。タップ進行・好感度計算・ルート確定は行いません。
+          選択肢はシナリオ確認用として残し、各項目を開くとその分岐全文を読めます。
+        </div>
+
+        
+    <section class="scene" id="scene-01">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 01</span>
+        <h2>翌朝 ―― なくしたもの</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">朝。</p>
+<p class="narration">目を覚まして最初に見たのは、枕元のスマートフォンだった。</p>
+<p class="narration">昨夜届いた、知らないアカウントからのメッセージが残っている。</p>
+<div class="message"><small>K</small>「帰るの？」<br>「白いカーディガン、似合ってたよ」<br>「また明日」</div>
+<p class="narration">寝る前には「気味が悪い」で済ませられたのに、朝の光の中で見返すと、文字だけが妙に生々しい。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……また明日、って何。予告？」</p></div><p class="narration">返信はしていない。</p>
+<p class="narration">スクリーンショットだけ残して、画面を伏せる。</p>
+<p class="narration">考えすぎかもしれない。大学でたまたま見かけた誰かが、軽い気持ちで送っただけかもしれない。</p>
+<p class="narration">――そう思うことにして、部屋を出た。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さん、おはよう」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「おはよ……」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……寝不足？」</p></div><p class="narration">キッチンには、焼きたてのトーストと目玉焼き。</p>
+<p class="narration">玲央はフライパンを片手に、こちらをじっと見ている。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「顔に出てる？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「出てる。姉さん、隠し事すると右の眉ちょっと上がるし」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「そんな機能あったんだ、私の眉」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺は知ってるよ」</p></div><p class="narration">さらりと言って、玲央がコーヒーを置く。</p>
+<p class="narration">――俺は知ってる。</p>
+<p class="narration">昨日、玲央が昔の約束を一言一句覚えていたことを思い出して、胸の奥が少しくすぐったくなった。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「何かあった？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「ううん。ちょっと変な夢見ただけ」</p></div>
+<p class="narration">嘘ではない。</p>
+<p class="narration">昨夜のメッセージは、夢みたいに現実味がなかったから。</p><p class="narration">朝食を終えて、大学へ行く支度をする。</p>
+<p class="narration">財布。スマホ。イヤホン。学生証。</p>
+<p class="narration">――鍵。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……あれ？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「どうしたの？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「鍵、ない」</p></div>
+<p class="narration">玲央の手が止まった。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……家の鍵？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん。白い猫のキーホルダー付けてたやつ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「最後に使ったの、いつ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「昨日帰ってきた時……かな」</p></div>
+<p class="narration">声の温度が、ひとつ下がった。</p>
+<p class="narration">怒っているのではない。</p>
+<p class="narration">怖がっている。</p>
+<p class="narration">それに気づいた瞬間だけ、眠気が完全に消えた。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「何？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……怖い？」</p></div>
+<p class="narration">玲央が目を見開く。</p>
+<p class="narration">ほんの一瞬、昔の玲央と重なった。</p>
+<p class="narration">泣くのを我慢して、でも「怖い」と言えなかった、小さな男の子。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さんが鍵なくしたのに、俺が怖がってどうすんの」</p></div><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「そういうの関係ないよ。怖い時は怖いでいいじゃん」</p></div>
+<p class="narration">玲央は何も言わなかった。</p>
+<p class="narration">代わりにスペアキーを握る指に、少しだけ力が入った。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……昔から、そういうとこ変わらないね」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何が？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「自分の方が危ないのに、俺の心配するところ」</p></div><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「今日は俺が先に帰る。管理会社にも連絡する」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央、授業は？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「一個くらいどうにでもなる」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「だめ。私のせいで休むのはだめ」</p></div>
+<p class="narration">即答すると、玲央が少し困ったように笑った。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さんは、俺に守らせてくれないね」</p></div>
+            <section class="choice-block">
+              <div class="choice-kicker">CHOICE 01</div>
+              <h3>鍵が見つからない。どうする？</h3>
+              <p class="choice-note">閲覧版ではゲーム上の選択は行いません。各選択肢を開くと、その場合の分岐シーンを確認できます。</p>
+              <div class="branch-grid">
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">A</span>
+                    <span>玲央に頼る</span>
+                  </summary>
+                  <div class="branch-body"><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……じゃあ、帰る時だけ迎えに来てくれる？」</p></div>
+<p class="narration">玲央の表情が、目に見えてほどけた。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「うん。もちろん」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「授業はちゃんと出ること」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「分かった。姉さんがそう言うなら」</p></div>
+<p class="narration">玲央が私の手を取る。</p>
+<p class="narration">握る、というより、指先を確かめるように触れた。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「頼ってくれて、ありがと」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「そこ、お礼言うところ？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺にはね」</p></div>
+<p class="narration">笑っているのに、その声は妙に真剣だった。</p></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">B</span>
+                    <span>湊にも聞いてみる</span>
+                  </summary>
+                  <div class="branch-body"><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「昨日、途中まで湊と一緒だったし。落としたの見てないか聞いてみる」</p></div>
+<p class="narration">玲央の笑顔が、ほんの一瞬だけ止まった。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……湊さんに？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん。何か覚えてるかも」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「そっか。幼馴染だもんね」</p></div>
+<p class="narration">言葉は普通だった。</p>
+<p class="narration">でも、そのあと玲央は、私が玄関を出るまで一度も「湊」の名前を口にしなかった。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「見つからなかったら、すぐ俺に言って」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……一番に」</p></div></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">C</span>
+                    <span>まず自分で探す</span>
+                  </summary>
+                  <div class="branch-body"><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「大学行くまでの道、もう一回見てみる。たぶんどっかに落ちてるよ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「一人で？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「朝だし、人もいるし」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……姉さん」</p></div>
+<p class="narration">叱るような声。</p>
+<p class="narration">でも私は、玲央の目の奥にあるものを知ってしまった。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「帰る時は連絡する。見つからなかったら管理会社にも言う。それでどう？」</p></div>
+<p class="narration">数秒の沈黙。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……分かった」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「でも連絡だけは絶対して。約束して」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「約束」</p></div></div>
+                </details></div>
+              <div class="merge-note">このあと共通シナリオへ合流</div>
+            </section></div>
+    </section>
+    <section class="scene" id="scene-02">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 02</span>
+        <h2>大学 ―― 笑わせる人</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">昼休み。</p>
+<p class="narration">私はキャンパスの端を、地面ばかり見ながら歩いていた。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「落ちてる単位でも探してんの？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「単位はまだ落としてない」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「“まだ”って自覚はあるんだな」</p></div>
+<p class="narration">顔を上げると、湊が紙パックのカフェオレを片手に立っていた。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「鍵なくした」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……家の？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん」</p></div>
+<p class="narration">笑っていた顔が、一瞬で真面目になる。</p>
+<p class="narration">でも玲央と違って、湊はすぐには何も決めなかった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「最後に見たのいつ。落とした可能性ある場所、一緒に整理するか」</p></div><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊、お昼は？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「食った」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「そのカフェオレだけじゃない？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……細かいことに気づく日と気づかない日の差が極端すぎんだろ、お前」</p></div>
+<p class="narration">そう言いながら笑う。</p>
+<p class="narration">いつもの湊の笑い方。</p>
+<p class="narration">それだけで、朝から強張っていた肩が少し下がった。</p><p class="narration">二人で昨日の帰り道を辿る。</p>
+<p class="narration">ベンチの下。自販機の横。大学の門の近く。</p>
+<p class="narration">何もない。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「疲れた？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「全然」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「じゃ、その手何」</p></div>
+<p class="narration">言われて気づく。</p>
+<p class="narration">鞄の持ち手を、指が白くなるほど握っていた。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……ちょっとだけ、変なメッセージ来てて」</p></div>
+<p class="narration">口から出ていた。</p>
+<p class="narration">湊は「見せろ」と言わなかった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「そっか」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それだけ？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「話したくなったら聞く。今話したくないなら、聞かない」</p></div><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……心配じゃないの？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「心配だから聞かないんだよ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「逆じゃない？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「怖い時にまで、人に説明すんのしんどいだろ」</p></div>
+<p class="narration">さらっと言ったあと、湊は自販機で温かいココアを一本買った。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「ほら。糖分。頭回ってない顔してる」</p></div><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊ってさ」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「ん？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「優しいよね」</p></div>
+<p class="narration">湊の足が、ほんの少し止まった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……今さら？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「幼馴染として百点」</p></div><p class="narration">その瞬間。</p>
+<p class="narration">湊は笑った。</p>
+<p class="narration">いつもと同じ、明るい笑顔で。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「そりゃどうも」</p></div>
+<p class="narration">ただ。</p>
+<p class="narration">ココアを渡した指先だけが、少し早く離れた。</p>
+<p class="narration">――“幼馴染として”。</p>
+<p class="narration">そこから先を望まなければ、ずっと隣にいられる。</p>
+<p class="narration">湊はそうやって、何年も笑ってきた。</p></div>
+    </section>
+    <section class="scene" id="scene-03">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 03</span>
+        <h2>視線 ―― 昨日より近い</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">午後の講義が終わった頃。</p>
+<p class="narration">スマートフォンが震えた。</p>
+<div class="message"><small>K</small>「白い猫、まだ見つからない？」</div>
+<p class="narration">息が止まる。</p>
+<p class="narration">白い猫。</p>
+<p class="narration">鍵につけていたキーホルダーのことだ。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……なんで知ってるの」</p></div><p class="narration">鍵をなくしたことは、SNSに書いていない。<br>キーホルダーの話もしていない。</p>
+<p class="narration">もう一件。</p>
+<div class="message"><small>K</small>「今日は髪、結んでるんだね」<br>「そっちも似合う」</div>
+<p class="narration">反射的に顔を上げる。</p>
+<p class="narration">講義棟の廊下。階段。窓の向こう。</p>
+<p class="narration">人、人、人。</p>
+<p class="narration">誰が見ているのか分からない。</p><p class="narration">指が震えた。</p>
+<p class="narration">昨夜は画面の向こうだったものが、突然、同じ場所にいる。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……やだ」</p></div>
+<p class="narration">小さな声は、周囲の話し声に消えた。</p>
+            <section class="choice-block">
+              <div class="choice-kicker">CHOICE 02</div>
+              <h3>このメッセージを、誰に見せる？</h3>
+              <p class="choice-note">閲覧版ではゲーム上の選択は行いません。各選択肢を開くと、その場合の分岐シーンを確認できます。</p>
+              <div class="branch-grid">
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">A</span>
+                    <span>玲央に送る</span>
+                  </summary>
+                  <div class="branch-body"><p class="narration">スクリーンショットを送る。</p>
+<p class="narration">既読がついたのと、着信が鳴ったのはほとんど同時だった。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「今どこ？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「大学。講義棟」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「そこ動かないで。今行く」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央、授業は？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さんより大事な授業なんかない」</p></div>
+<p class="narration">冗談ではない声だった。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「お願い。今だけは、俺の言うこと聞いて」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……また、俺の知らないところで怖い思いしないで」</p></div></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">B</span>
+                    <span>湊に見せる</span>
+                  </summary>
+                  <div class="branch-body"><p class="narration">スクリーンショットを送る。</p>
+<p class="narration">数秒後。</p>
+<p class="narration">【湊】今どこ<br>【結衣】講義棟<br>【湊】一人？<br>【結衣】うん</p>
+<p class="narration">【湊】そこにいてほしい。<br>嫌じゃなければ迎えに行く。</p>
+<p class="narration">“動くな”ではなく、“いてほしい”。</p>
+<p class="narration">それだけの違いなのに、少し息がしやすくなった。</p>
+<p class="narration">【結衣】来てほしい<br>【湊】了解。五分。</p></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">C</span>
+                    <span>二人に見せる</span>
+                  </summary>
+                  <div class="branch-body"><p class="narration">一人だけに送る理由が、今は見つからなかった。</p>
+<p class="narration">玲央と湊、二人に同じスクリーンショットを送る。</p>
+<p class="narration">先に玲央から着信。<br>同時に湊から「今どこ」とメッセージ。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……二人とも速い」</p></div>
+<p class="narration">怖いのに。</p>
+<p class="narration">ほんの少しだけ、笑いそうになった。</p></div>
+                </details></div>
+              <div class="merge-note">このあと共通シナリオへ合流</div>
+            </section></div>
+    </section>
+    <section class="scene" id="scene-04">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 04</span>
+        <h2>二つの守り方</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">先に来たのは湊だった。</p>
+<p class="narration">走ってきたらしく、少し息が上がっている。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「結衣」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……湊」</p></div>
+<p class="narration">湊は私の肩に触れかけて、手を止めた。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「触って平気？」</p></div><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん」</p></div>
+<p class="narration">答えてから、肩を軽く叩かれる。</p>
+<p class="narration">それだけ。<br>抱きしめたりはしない。</p>
+<p class="narration">でも、その“それだけ”が今はありがたかった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「帰る？　それとも大学の窓口先に行く？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……どうしよう」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「急がなくていい。決めるまでここいる」</p></div><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さん」</p></div>
+<p class="narration">聞き慣れた声。</p>
+<p class="narration">振り向くと、玲央が立っていた。</p>
+<p class="narration">私を見つけた瞬間だけ、顔から張り詰めたものが落ちる。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「よかった」</p></div>
+<p class="narration">次の瞬間には、私の手首を掴んでいた。</p>
+<p class="narration">強くはない。<br>でも、離す気のない握り方だった。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「帰ろう。管理会社にも警察にも俺から連絡する」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「待てよ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「何ですか」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「結衣はどうしたい？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「今、選ばせる必要あります？」</p></div><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「今だからだろ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「怖がってるのに？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「怖がってるからって、勝手に決めていい理由にはならない」</p></div>
+<p class="narration">空気が冷える。</p>
+<p class="narration">玲央の指が、私の手首でわずかに強くなった。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……俺は、姉さんを危ない目に遭わせたくないだけです」</p></div><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「俺だって同じだよ」</p></div>
+<p class="narration">湊は笑わなかった。</p>
+<p class="narration">でも玲央を責める声でもなかった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「同じだから、結衣に聞いてんの」</p></div>
+<p class="narration">二人とも私を守ろうとしている。</p>
+<p class="narration">なのに。</p>
+<p class="narration">守り方は、こんなにも違う。</p>
+            <section class="choice-block">
+              <div class="choice-kicker">CHOICE 03</div>
+              <h3>帰るなら、どうしたい？</h3>
+              <p class="choice-note">閲覧版ではゲーム上の選択は行いません。各選択肢を開くと、その場合の分岐シーンを確認できます。</p>
+              <div class="branch-grid">
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">A</span>
+                    <span>玲央と帰りたい</span>
+                  </summary>
+                  <div class="branch-body"><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……玲央と帰る」</p></div>
+<p class="narration">玲央の手から、力が抜けた。</p>
+<p class="narration">安堵したように笑う。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「うん。帰ろう」</p></div>
+<p class="narration">湊は一拍だけ黙ったあと、いつもの調子で肩をすくめた。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「了解。着いたら連絡だけくれ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊、怒ってない？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「何で俺が怒るんだよ」</p></div>
+<p class="narration">笑っている。</p>
+<p class="narration">明るい声。</p>
+<p class="narration">そのくせ、私たちから離れる一歩だけが少し早かった。</p></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">B</span>
+                    <span>湊と帰りたい</span>
+                  </summary>
+                  <div class="branch-body"><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……湊と帰る」</p></div>
+<p class="narration">湊が目を瞬く。</p>
+<p class="narration">嬉しそうにするより先に、玲央を見た。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「家まで送る。それだけ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……分かってます」</p></div>
+<p class="narration">玲央は笑った。</p>
+<p class="narration">笑ったまま、私の手首を離した。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さん。着いたら俺に連絡して」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「絶対ね」</p></div>
+<p class="narration">湊が何か言いかけて、やめた。</p>
+<p class="narration">今は勝ち負けにする場面じゃないと、自分に言い聞かせたみたいに。</p></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">C</span>
+                    <span>二人とも一緒に来て</span>
+                  </summary>
+                  <div class="branch-body"><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……二人とも一緒に来てほしい」</p></div>
+<p class="narration">二人が同時にこちらを見る。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「今は、どっちか選ぶのしんどい」</p></div>
+<p class="narration">先に息を吐いたのは湊だった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「了解」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん。姉さんがそうしたいなら」</p></div>
+<p class="narration">玲央の返事は素直だった。</p>
+<p class="narration">ただ、“どっちか選ぶ”という言葉にだけ、ほんの一瞬、目が揺れた。</p></div>
+                </details></div>
+              <div class="merge-note">このあと共通シナリオへ合流</div>
+            </section></div>
+    </section>
+    <section class="scene" id="scene-05">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 05</span>
+        <h2>帰り道 ―― 近い人、遠い人</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">大学を出る。</p>
+<p class="narration">さっきまで誰かに見られている気がしていた道を歩く。</p>
+<p class="narration">玲央は、私のすぐ隣。</p>
+<p class="narration">車道側に立ち、信号のたびにこちらを確認する。</p>
+<p class="narration">湊は、半歩後ろ。</p>
+<p class="narration">近すぎず、でも振り返れば必ずいる距離。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……二人とも、過保護」</p></div><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「今日だけ特別サービス」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺は今日だけじゃないけど」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「そこ堂々と言うんだ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さんのこと心配するのに、隠す必要あります？」</p></div>
+<p class="narration">笑っている。</p>
+<p class="narration">でも、その言葉の奥にある熱は、以前より分かるようになってしまった。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊はなんで後ろ歩くの？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「んー？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「さっきからずっと」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「前歩くと、お前が見えないから」</p></div>
+<p class="narration">言った直後、湊が「あ」と顔をする。</p><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「いや、防犯的な意味な」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何焦ってるの」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「焦ってねーよ」</p></div>
+<p class="narration">耳だけが少し赤い。</p>
+<p class="narration">玲央は、それを横目で見ていた。</p>
+<p class="narration">一歩近づけば、結衣はたぶん拒まない。</p>
+<p class="narration">だから湊は、一歩引く。</p>
+<p class="narration">“拒まれない”ことと、“望まれている”ことは違うと知っているから。</p></div>
+    </section>
+    <section class="scene" id="scene-06">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 06</span>
+        <h2>部屋 ―― 返された鍵</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">マンションに着く。</p>
+<p class="narration">外から見る限り、何も変わっていない。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺が先に入る」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「管理会社来るまで待つ手もある」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……中、見たい」</p></div>
+<p class="narration">自分の声が少し震えた。</p>
+<p class="narration">二人とも、それ以上反対しなかった。</p><p class="narration">玄関。</p>
+<p class="narration">リビング。</p>
+<p class="narration">キッチン。</p>
+<p class="narration">変わったところはない。</p>
+<p class="narration">自分の部屋の前で、足が止まる。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さん、俺が見る」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「一緒に見る」</p></div>
+<p class="narration">玲央がこちらを見る。</p>
+<p class="narration">数秒後、頷いた。</p><p class="narration">ドアを開ける。</p>
+<p class="narration">最初は、何も変わっていないように見えた。</p>
+<p class="narration">ベッド。本棚。机。ぬいぐるみ。</p>
+<p class="narration">そして、机の真ん中。</p>
+<p class="narration">白い猫のキーホルダー。</p>
+<p class="narration">その下に、なくしたはずの家の鍵。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……なんで」</p></div><p class="narration">スマートフォンが震える。</p>
+<p class="narration">見たくない。</p>
+<p class="narration">それでも画面を見る。</p>
+<div class="message"><small>K</small>「おかえり」<br>「ちゃんと返しておいたよ」</div>
+<p class="narration">手からスマートフォンが落ちる。</p>
+<p class="narration">床に着く前に、玲央が受け止めた。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……誰」</p></div>
+<p class="narration">低い声。</p>
+<p class="narration">今まで聞いたことがない。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「誰が、姉さんの部屋に入った」</p></div>
+<p class="narration">玲央の顔から、表情が消えていた。</p>
+<p class="narration">怖い、と思った。</p>
+<p class="narration">でも次の瞬間。</p>
+<p class="narration">それ以上に――傷ついているように見えた。</p><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「玲央。まず警察」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「分かってます」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「分かってる顔じゃねえよ」</p></div>
+<p class="narration">玲央が一歩動く。</p>
+<p class="narration">私は反射的に肩を揺らした。</p>
+<p class="narration">玲央が止まった。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……ごめん」</p></div>
+<p class="narration">伸ばしかけた手を、玲央が下ろす。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「触っていい？」</p></div>
+<p class="narration">怒りでいっぱいのはずなのに。</p>
+<p class="narration">私が怖がったことだけは、見落とさない。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん」</p></div>
+<p class="narration">頬に触れた手は、震えていた。</p></div>
+    </section>
+    <section class="scene" id="scene-07">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 07</span>
+        <h2>怖かった人</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「ごめん。俺が朝、もっとちゃんと――」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「鍵なくした時点で、俺が止めてれば。大学なんか行かせなければ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+<p class="narration">二度目は、少し強く呼んだ。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「私が怖かったのと、玲央が悪いのは別だよ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「でも」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央も怖かったんでしょ」</p></div>
+<p class="narration">玲央が黙る。</p>
+<p class="narration">私はその顔を知っている。</p>
+<p class="narration">昔、いじめられていた頃。<br>“平気”と言い張っていた時の顔と、少しだけ似ている。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「守れなかったって、自分のこと責めてる？」</p></div>
+<p class="narration">玲央の喉が動いた。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……姉さんは、俺を守ってくれたのに」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それとこれは違うよ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺には違わない」</p></div><p class="narration">その言い方が、胸に刺さる。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「今度は俺が守るって、ずっと思ってた」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さんがもう怖い思いしなくていいように。俺が全部できればいいって」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……全部できなくていいよ」</p></div>
+<p class="narration">玲央の目が揺れる。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央は、もっとわがまま言っていいし、怖いって言っていいよ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央だから。できるとか、守れるとか、そういうので一緒にいるわけじゃないから」</p></div>
+<p class="narration">静かになった。</p>
+<p class="narration">玲央は、泣きそうにも、笑いそうにも見えた。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……それ、ずるいよ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何が？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「何でもない」</p></div><p class="narration">その少し後ろで。</p>
+<p class="narration">湊が電話を終えた。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「警察来るって。管理会社も向かってる」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「ん？」</p></div>
+<p class="narration">いつもの顔。</p>
+<p class="narration">いつもの声。</p>
+<p class="narration">でも、スマートフォンを持つ手が少し震えていた。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊も、怖かった？」</p></div>
+<p class="narration">湊が目を丸くする。</p>
+<p class="narration">それから笑った。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「俺？　いや、俺は――」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「“俺は大丈夫”は禁止」</p></div>
+<p class="narration">自分でも、少し強い声が出た。</p><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……お前、そういう時だけほんと鋭いよな」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「そういう時って？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「人が隠したいとこ、ちゃんと見つける時」</p></div>
+<p class="narration">湊は少し困ったように笑う。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「怖かったよ。間に合わなかったらどうしようって」</p></div><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……でも、今お前が無事だから。それでいい」</p></div>
+<p class="narration">“それでいい”。</p>
+<p class="narration">本当は、それだけじゃないことを。</p>
+<p class="narration">この時の私は、まだ知らない。</p>
+            <section class="choice-block">
+              <div class="choice-kicker">CHOICE 04</div>
+              <h3>今、誰のそばにいたい？</h3>
+              <p class="choice-note">閲覧版ではゲーム上の選択は行いません。各選択肢を開くと、その場合の分岐シーンを確認できます。</p>
+              <div class="branch-grid">
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">A</span>
+                    <span>玲央の袖を掴む</span>
+                  </summary>
+                  <div class="branch-body"><p class="narration">気づけば、玲央の袖を掴んでいた。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……姉さん？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「少しだけ、このまま」</p></div>
+<p class="narration">玲央は息を止めたあと、私の手に自分の手を重ねた。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「少しだけじゃなくてもいいよ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それは困る」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺は困らない」</p></div>
+<p class="narration">冗談みたいに笑う。</p>
+<p class="narration">でも玲央は、一度も「冗談」と言わなかった。</p></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">B</span>
+                    <span>湊の手を取る</span>
+                  </summary>
+                  <div class="branch-body"><p class="narration">湊の手を取る。</p>
+<p class="narration">自分から触れたことに、湊の方が驚いた。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……いいの？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「今聞く？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「聞くだろ」</p></div>
+<p class="narration">そう言って、ゆっくり握り返される。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「嫌になったらすぐ離せよ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊が離せばいいじゃん」</p></div>
+<p class="narration">湊が苦笑する。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……それ、俺にはちょっと難しいから」</p></div>
+<p class="narration">意味を聞く前に、インターホンが鳴った。</p></div>
+                </details>
+                <details class="branch-card">
+                  <summary class="branch-label">
+                    <span class="branch-no">C</span>
+                    <span>「二人とも、ここにいて」</span>
+                  </summary>
+                  <div class="branch-body"><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「二人とも、ここにいて」</p></div>
+<p class="narration">今度は、迷わず言えた。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「一人は、ちょっと嫌」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「了解」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん。どこにも行かない」</p></div>
+<p class="narration">二人の返事は同じくらい優しかった。</p>
+<p class="narration">ただ。</p>
+<p class="narration">“どこにも行かない”という玲央の言葉だけが、少し重く胸に残った。</p></div>
+                </details></div>
+              <div class="merge-note">このあと共通シナリオへ合流</div>
+            </section></div>
+    </section>
+    <section class="scene" id="scene-08">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 08</span>
+        <h2>事件の名前</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">警察と管理会社の確認で、少しずつ事実が分かった。</p>
+<p class="narration">マンションの防犯カメラには、私の落とした鍵を拾う人物が映っていた。</p>
+<p class="narration">その人物は、大学周辺のカメラにも何度か残っていた。</p>
+<p class="narration">名前は、相沢 圭。</p>
+<p class="narration">同じ大学の学生。<br>何度か同じ講義を受けたことがあるらしい。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……顔、ちゃんと覚えてない」</p></div><p class="narration">相沢は、私がSNSに載せた写真の背景から行動範囲を絞っていた。</p>
+<p class="narration">偶然拾った鍵を“特別なきっかけ”だと思い込み、部屋へ入った。</p>
+<p class="narration">何も盗まなかった。</p>
+<p class="narration">代わりに、私の部屋を見た。<br>私の机に触れた。<br>私の生活を、“知れた”ことを喜んだ。</p>
+<p class="narration">匿名アカウント“K”も、相沢のものだった。</p><p class="narration">数日後。</p>
+<p class="narration">大学の相談室で、担当者から相沢の説明を聞く。</p>
+<div class="message"><small>相沢の説明</small>「傷つけるつもりはなかった」<br>「好きだったから、もっと知りたかっただけ」<br>「鍵を返したのも、困らせたくなかったから」</div>
+<p class="narration">文字を読んでいるうちに、怖さより先に腹が立った。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……勝手だ」</p></div><div class="dialogue "><div class="speaker">担当者</div><p class="line">「え？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「好きだったら、何してもいいわけじゃないです」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「私が怖いかどうか、私が嫌かどうかを、相沢さんが勝手に決めないでほしい」</p></div>
+<p class="narration">自分でも驚くほど、声は震えなかった。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「“傷つけるつもりがなかった”なら、怖がらせてもいいわけじゃない」</p></div><p class="narration">相談室を出ると、廊下に玲央と湊がいた。</p>
+<p class="narration">二人とも、内容は聞かないと約束して待っていた。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「終わった？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……何て言ってた？」</p></div>
+<p class="narration">玲央が聞いてから、はっとして口を閉じる。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「ごめん。言いたくなかったらいい」</p></div>
+<p class="narration">私は少し迷ってから、さっきの言葉を二人に話した。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「好きなら、相手の気持ちを勝手に決めていいわけじゃないって言った」</p></div>
+<p class="narration">湊は、静かに頷いた。</p>
+<p class="narration">玲央は。</p>
+<p class="narration">ほんの一瞬だけ、笑顔をなくした。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……そうだね」</p></div>
+<p class="narration">すぐに、いつもの優しい顔へ戻る。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さんが嫌がることは、しちゃだめだ」</p></div>
+<p class="narration">当たり前の言葉。</p>
+<p class="narration">なのに玲央は、自分に言い聞かせるように繰り返した。</p>
+<p class="narration">姉さんが嫌がることはしない。</p>
+<p class="narration">――じゃあ。</p>
+<p class="narration">嫌がられないようにすればいい。</p>
+<p class="narration">そう考えかけた自分を、玲央はまだ止められなかった。</p></div>
+    </section>
+    <section class="scene" id="scene-09">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 09</span>
+        <h2>言わない人</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">大学側の対応が決まり、相沢からの接触も止まった。</p>
+<p class="narration">事件は、一応の終わりを迎えた。</p>
+<p class="narration">帰り道。</p>
+<p class="narration">隣には湊がいる。</p>
+<p class="narration">玲央は先に帰って、管理会社から新しい鍵を受け取っている。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊、もう送り迎え大丈夫だよ」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「ついで」</p></div><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊の家、反対方向」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「細けえなあ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「今日は気づく日なので」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「じゃあ明日は気づかない日だな」</p></div>
+<p class="narration">いつものやり取り。</p>
+<p class="narration">笑えることが嬉しい。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊ならさ」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「ん？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「好きな人が怖がってたら、どうする？」</p></div>
+<p class="narration">湊が、見事なくらい足を止めた。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「あ、変な質問だった？」</p></div><div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……いや」</p></div>
+<p class="narration">数歩歩いてから、湊は前を見たまま答えた。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「何してほしいか聞く」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それだけ？」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「そいつが来てって言うなら行く。放っといてって言うなら離れる」</p></div><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「離れたくなくても？」</p></div>
+<p class="narration">湊が笑う。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……そこは俺の都合じゃん」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「好きな相手に、自分の“好き”の後始末させたくない」</p></div>
+<p class="narration">胸が、少しだけ鳴った。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「湊、好きな人いるの？」</p></div>
+<p class="narration">聞いた瞬間。</p>
+<p class="narration">湊はいつもの笑顔になった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「さあな」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何それ」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「幼馴染にも秘密のひとつくらいあるんですー」</p></div><p class="narration">マンションの前に着く。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「上がってく？」</p></div>
+<p class="narration">湊が一瞬、答えに詰まった。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「今日はやめとく。玲央いるだろ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央いても別にいいじゃん」</p></div>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「……そういう問題じゃねえの」</p></div><p class="narration">私が首を傾げると、湊は笑って手を振った。</p>
+<div class="dialogue minato"><div class="speaker">湊</div><p class="line">「また明日な、結衣」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん。また明日」</p></div>
+<p class="narration">ドアが閉まる。</p>
+<p class="narration">上がりたいに決まっている。</p>
+<p class="narration">一人になるまで隣にいたい。<br>怖かった分だけ抱きしめたい。</p>
+<p class="narration">それでも湊は、呼ばれていない一歩を越えなかった。</p></div>
+    </section>
+    <section class="scene" id="scene-10">
+      <header class="scene-head">
+        <span class="scene-no">SCENE 10</span>
+        <h2>約束を覚えている人</h2>
+        <div class="scene-rule"></div>
+      </header>
+      <div class="scene-body"><p class="narration">玄関を開けると、玲央が待っていた。</p>
+<p class="narration">手には、新しい鍵。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「おかえり、姉さん」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「ただいま」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「鍵、替えてもらったよ」</p></div>
+<p class="narration">差し出された鍵を受け取る。</p>
+<p class="narration">冷たい金属が、手のひらに乗る。</p><div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「ん？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「この前言ったこと、忘れないでね」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「どれ？　姉さん最近いろいろ言うから」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「もっとわがまま言っていいってやつ」</p></div><p class="narration">玲央が、動かなくなる。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央、何でも一人でできるふりするから」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「怖い時とか、嫌な時とか。私に言っていいんだよ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……姉さんが困ることでも？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「内容による」</p></div>
+<p class="narration">即答すると、玲央が吹き出した。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「そこは“何でも言って”じゃないんだ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「乙女ゲームでも選択肢は大事なので」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「現実でも選択肢くれるんだ」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「当然でしょ。私が決めたいことは私が決める」</p></div>
+<p class="narration">玲央の笑みが、ごくわずかに揺れた。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「分かった」</p></div>
+<p class="narration">そう言って、玲央は私の頭に触れかける。</p>
+<p class="narration">でも途中で止めた。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「撫でてもいい？」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「今日は特別に許可します」</p></div>
+<p class="narration">髪を撫でる手が、ひどく優しかった。</p><div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「姉さん」</p></div>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「ん？」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……ずっと一緒にいてくれる？」</p></div>
+<p class="narration">昔にも聞いたことがある問いだった。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「急にどうしたの」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「わがまま言っていいって言ったから」</p></div><p class="narration">少しだけ笑う。</p>
+<p class="narration">冗談のようにも聞こえる。</p>
+<p class="narration">でも、玲央は目を逸らさない。</p>
+<div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「少なくとも、玲央が本当にしんどい時に一人にはしないよ」</p></div>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……そっか」</p></div>
+<p class="narration">玲央は、その言葉を大事なものみたいに受け取った。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「ありがとう、姉さん」</p></div><p class="narration">その夜。</p>
+<p class="narration">私が部屋へ戻ったあと。</p>
+<p class="narration">玲央は一人でリビングに残った。</p>
+<p class="narration">スマートフォンを開く。</p>
+<p class="narration">検索欄に入力する。</p>
+<p class="narration">「位置情報　家族　共有」</p>
+<p class="narration">設定画面を開いて、閉じる。</p>
+<p class="narration">また開く。</p><p class="narration">姉さんが嫌がることはしたくない。</p>
+<p class="narration">嫌われたくない。<br>怖がられたくない。</p>
+<p class="narration">だから、勝手にはしない。</p>
+<p class="narration">ちゃんと聞く。</p>
+<p class="narration">――姉さんが断りづらい言い方を、俺は知っているけれど。</p>
+<div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……嫌なら、いいよ」</p></div>
+<p class="narration">明日言う言葉を、小さく試す。</p>
+<p class="narration">そして玲央は、少しだけ笑った。</p><p class="narration">同じ頃。</p>
+<p class="narration">帰宅した湊のスマートフォンには、結衣とのトーク画面が開いたままだった。</p>
+<div class="message"><small>湊 → 結衣</small>「着いたら一応連絡しろよ」</div>
+<p class="narration">送るか迷って。</p>
+<p class="narration">湊は文字を全部消した。</p>
+<p class="narration">無事なら、それでいい。</p>
+<p class="narration">本当は、無事だと自分に知らせてほしい。</p>
+<p class="narration">その願いを“優しさ”のふりで押しつけないために、湊はまた一歩引いた。</p><p class="narration">守るために、近づこうとする人。</p>
+<p class="narration">守るために、踏み込みすぎない人。</p>
+<p class="narration">同じ“好き”は、まだ私の中では名前を持っていない。</p>
+<p class="narration">ただ。</p>
+<p class="narration">昨日までと同じ三人には、もう戻れない気がした。</p></div>
+    </section>
+
+        <section class="ending" id="ending">
+          <div class="ending-mark">◇</div>
+          <h2>INCIDENT END</h2>
+          <p class="ending-title">――鍵は、新しくなった。</p>
+          <p class="ending-copy">
+            けれど。<br><br>
+            守るために近づこうとする人と、<br>
+            守るために踏み込みすぎない人。<br><br>
+            事件が閉じたあとも、三人の距離だけは<br>
+            もう前と同じ場所へ戻らない。
+          </p>
+          <p class="next-label">NEXT STORY</p>
+          <p class="next-title">COMMON ROUTE｜事件後</p>
+          <div class="ending-actions">
+            <a class="primary-button" href="after-incident.html">次の章を読む</a>
+            <a class="secondary-button" href="intro_latest.html">イントロへ戻る</a>
+            <a class="secondary-button" href="../index.html">TOPへ戻る</a>
+          </div>
+        </section>
+
+        <footer>COMMON ROUTE / INCIDENT — Reader Edition</footer>
+      </article>
+    </main>
+  </div>
+</div>
+
+<script>
+(() => {
+  const SETTINGS_KEY="otome-reader-settings-v1";
+  const POSITION_KEY="otome_incident_latest_reader_position_v1";
+  const root=document.documentElement;
+  const progress=document.getElementById("progressBar");
+  const themeSelect=document.getElementById("themeSelect");
+  const fontBtn=document.getElementById("fontBtn");
+  const sizeBtns=[...document.querySelectorAll("[data-size]")];
+  const tocLinks=[...document.querySelectorAll(".toc a")];
+  const scenes=[...document.querySelectorAll(".scene")];
+  const currentScene=document.getElementById("currentScene");
+  const resumeCard=document.getElementById("resumeCard");
+  const resumeBtn=document.getElementById("resumeBtn");
+
+  function loadSettings(){
+    try{
+      const s=JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}");
+      if(s.theme)root.dataset.theme=s.theme;
+      if(s.font)root.dataset.font=s.font;
+      if(s.size)root.dataset.size=s.size;
+    }catch(e){}
+    themeSelect.value=root.dataset.theme||"light";
+    fontBtn.textContent=root.dataset.font==="sans"?"ゴシック":"明朝";
+    sizeBtns.forEach(b=>b.classList.toggle("active",b.dataset.size===root.dataset.size));
+  }
+  function saveSettings(){
+    localStorage.setItem(SETTINGS_KEY,JSON.stringify({
+      theme:root.dataset.theme,font:root.dataset.font,size:root.dataset.size
+    }));
+  }
+  themeSelect.addEventListener("change",()=>{root.dataset.theme=themeSelect.value;saveSettings();});
+  fontBtn.addEventListener("click",()=>{
+    root.dataset.font=root.dataset.font==="sans"?"serif":"sans";
+    fontBtn.textContent=root.dataset.font==="sans"?"ゴシック":"明朝";
+    saveSettings();
+  });
+  sizeBtns.forEach(btn=>btn.addEventListener("click",()=>{
+    root.dataset.size=btn.dataset.size;
+    sizeBtns.forEach(b=>b.classList.toggle("active",b===btn));
+    saveSettings();
+  }));
+
+  function updateProgress(){
+    const doc=document.documentElement;
+    const max=Math.max(1,doc.scrollHeight-window.innerHeight);
+    const ratio=Math.max(0,Math.min(1,window.scrollY/max));
+    progress.style.width=(ratio*100).toFixed(2)+"%";
+    localStorage.setItem(POSITION_KEY,String(Math.round(window.scrollY)));
+  }
+  function updateCurrentScene(){
+    let active=scenes[0];
+    const y=window.scrollY+130;
+    for(const scene of scenes){if(scene.offsetTop<=y)active=scene;else break;}
+    if(!active)return;
+    currentScene.textContent=active.querySelector(".scene-no")?.textContent||"";
+    tocLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+active.id));
+  }
+  let ticking=false;
+  window.addEventListener("scroll",()=>{
+    if(!ticking){
+      requestAnimationFrame(()=>{updateProgress();updateCurrentScene();ticking=false;});
+      ticking=true;
+    }
+  },{passive:true});
+
+  const savedY=Number(localStorage.getItem(POSITION_KEY)||0);
+  if(savedY>500)resumeCard.classList.add("show");
+  resumeBtn.addEventListener("click",()=>{
+    window.scrollTo({top:savedY,behavior:"smooth"});
+    resumeCard.classList.remove("show");
+  });
+
+  document.querySelectorAll(".choice-block").forEach(block=>{
+    const branches=[...block.querySelectorAll("details.branch-card")];
+    branches.forEach(branch=>branch.addEventListener("toggle",()=>{
+      if(!branch.open)return;
+      branches.forEach(other=>{if(other!==branch)other.open=false;});
+    }));
+  });
+
+  loadSettings();
+  updateProgress();
+  updateCurrentScene();
+})();
+</script>
+</body>
+</html>
