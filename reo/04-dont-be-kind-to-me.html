@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light" data-font="serif" data-size="medium">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8f3f6">
+<meta name="description" content="REO ROUTE 04｜DON’T BE KIND TO ME ― 優しくしないで。結衣の優しさを恋だと信じきれない玲央が、自分から距離を取る第四章">
+<title>REO ROUTE 04｜DON’T BE KIND TO ME ― 優しくしないで</title>
+<style>
+:root{
+  --page:#f8f3f6;
+  --surface:rgba(255,255,255,.95);
+  --surface-soft:#f1e6ee;
+  --text:#342b31;
+  --text-soft:#72636d;
+  --muted:#9d8d97;
+  --line:#eadbe4;
+  --accent:#8f5a78;
+  --accent-deep:#69425b;
+  --accent-soft:#ead5e2;
+  --yui:#9b6b79;
+  --reo:#824e6b;
+  --shadow:0 18px 50px rgba(75,45,64,.09);
+  --reader-width:700px;
+  --font-size:17px;
+  --leading:2.08;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+}
+html[data-theme="dark"]{
+  --page:#171316;
+  --surface:rgba(34,28,32,.96);
+  --surface-soft:#2d232a;
+  --text:#f4ebf0;
+  --text-soft:#c8bac2;
+  --muted:#978590;
+  --line:#41323b;
+  --accent:#d69cbb;
+  --accent-deep:#efb8d5;
+  --accent-soft:#493340;
+  --yui:#d3a0ad;
+  --reo:#de98bc;
+  --shadow:0 18px 50px rgba(0,0,0,.28);
+}
+html[data-theme="sepia"]{
+  --page:#f3ece2;
+  --surface:rgba(253,249,243,.96);
+  --surface-soft:#ece0d5;
+  --text:#42362f;
+  --text-soft:#75655d;
+  --muted:#9a897e;
+  --line:#dfcfc3;
+  --accent:#895c68;
+  --accent-deep:#694650;
+  --accent-soft:#e5d0d0;
+  --yui:#91675f;
+  --reo:#805a69;
+}
+html[data-font="sans"]{--reader-font:var(--sans)}
+html[data-font="serif"]{--reader-font:var(--serif)}
+html[data-size="small"]{--font-size:15.5px}
+html[data-size="medium"]{--font-size:17px}
+html[data-size="large"]{--font-size:19px}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--page)}
+body{
+  margin:0;min-height:100vh;color:var(--text);font-family:var(--sans);
+  background:
+    radial-gradient(circle at 10% 3%,rgba(151,82,120,.12),transparent 30rem),
+    radial-gradient(circle at 92% 38%,rgba(113,65,91,.08),transparent 28rem),
+    var(--page);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+button,select{font:inherit}
+
+.reading-progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:1200}
+.reading-progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),#c98cac)}
+
+.reader-bar{
+  position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--page) 91%,transparent);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+.reader-bar-inner{
+  width:min(1120px,100%);min-height:64px;margin:auto;
+  padding:max(8px,env(safe-area-inset-top)) 14px 8px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.reader-id{min-width:0}
+.reader-kicker{display:block;color:var(--accent);font:900 10px var(--sans);letter-spacing:.15em}
+.reader-title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 12px var(--serif)}
+.reader-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.tool-btn,.tool-select{
+  min-height:38px;border:1px solid var(--line);border-radius:999px;color:var(--text);
+  background:var(--surface);font:800 10px var(--sans);padding:0 10px
+}
+.tool-btn{min-width:38px;cursor:pointer}
+.tool-btn.active{color:var(--accent);background:var(--surface-soft)}
+
+.layout{
+  width:min(1120px,100%);margin:auto;padding-top:24px;
+  display:grid;grid-template-columns:220px minmax(0,810px);gap:30px;
+  justify-content:center;align-items:start
+}
+.toc{
+  position:sticky;top:86px;max-height:calc(100svh - 110px);overflow:auto;
+  margin-left:16px;padding:14px;border:1px solid var(--line);
+  border-radius:16px;background:var(--surface);box-shadow:var(--shadow)
+}
+.toc-label{margin:0 0 10px;color:var(--muted);font:900 10px var(--sans);letter-spacing:.16em}
+.toc a{
+  display:block;margin:3px 0;padding:8px 9px;border-radius:9px;color:var(--muted);
+  text-decoration:none;font:500 12px/1.5 var(--sans)
+}
+.toc a:hover,.toc a.active{color:var(--accent);background:var(--surface-soft);font-weight:800}
+
+.reader-shell{min-width:0}
+.current-scene{
+  display:none;width:min(100% - 36px,var(--reader-width));margin:0 auto 10px;
+  color:var(--muted);font:800 10px var(--sans);letter-spacing:.08em
+}
+.page{width:min(100%,810px);margin:auto;padding:0 18px max(90px,env(safe-area-inset-bottom))}
+.reader{
+  width:min(100%,var(--reader-width));margin:auto;
+  font-family:var(--reader-font,var(--serif));
+  font-size:var(--font-size);line-height:var(--leading);letter-spacing:.025em
+}
+
+.hero{
+  position:relative;overflow:hidden;margin:24px 0 32px;padding:62px 24px 50px;
+  text-align:center;border:1px solid rgba(255,255,255,.55);border-radius:34px;
+  background:linear-gradient(150deg,var(--surface),var(--surface-soft));box-shadow:var(--shadow)
+}
+.hero:before{
+  content:"";position:absolute;width:260px;height:260px;top:-155px;right:-82px;
+  border-radius:50%;background:color-mix(in srgb,var(--accent) 17%,transparent)
+}
+.hero:after{
+  content:"";position:absolute;width:170px;height:170px;bottom:-105px;left:-85px;
+  border-radius:50%;background:color-mix(in srgb,var(--accent-deep) 10%,transparent)
+}
+.hero>*{position:relative;z-index:1}
+.eyebrow{margin:0 0 15px;color:var(--accent);font:900 10px var(--sans);letter-spacing:.22em}
+.hero h1{margin:0;font:600 clamp(2.15rem,8vw,3.7rem)/1.3 var(--serif);letter-spacing:.07em}
+.hero-sub{margin:9px 0 0;color:var(--accent-deep);font:600 1rem/1.7 var(--serif);letter-spacing:.08em}
+.hero-copy{max-width:32rem;margin:30px auto 0;color:var(--text-soft);font-size:14px;line-height:2.1}
+.route-lock{
+  display:inline-flex;margin-top:24px;padding:7px 13px;border:1px solid var(--line);
+  border-radius:999px;color:var(--accent-deep);background:var(--surface);
+  font:900 9px var(--sans);letter-spacing:.13em
+}
+.reading-note{
+  margin:0 0 44px;padding:14px 16px;border:1px solid var(--line);border-radius:15px;
+  color:var(--text-soft);background:color-mix(in srgb,var(--surface-soft) 70%,transparent);
+  font:11px/1.85 var(--sans)
+}
+
+.scene{padding-top:34px;margin-bottom:84px;scroll-margin-top:90px}
+.scene-head{margin-bottom:39px;text-align:center}
+.scene-no{display:block;color:var(--accent);font:900 10px var(--sans);letter-spacing:.22em}
+.scene-head h2{margin:8px 0 0;font:600 1.26em/1.6 var(--serif);letter-spacing:.075em}
+.scene-meta{margin-top:7px;color:var(--muted);font:700 10px var(--sans);letter-spacing:.08em}
+.scene-rule{width:38px;height:1px;margin:18px auto 0;background:var(--line)}
+.narration{margin:0 0 1.34em;text-align:justify;text-justify:inter-ideograph}
+.dialogue{margin:2em 0 2.15em}
+.speaker{display:flex;align-items:center;gap:8px;margin-bottom:.43em;font:900 .7em var(--sans);letter-spacing:.08em}
+.speaker:before{content:"";width:18px;height:2px;border-radius:99px;background:currentColor;opacity:.55}
+.dialogue.yui .speaker{color:var(--yui)}
+.dialogue.reo .speaker{color:var(--reo)}
+.line{margin:0;padding-left:1.35em;text-indent:-1.35em;font-weight:500}
+.line+.line{margin-top:.45em}
+.beat{display:grid;place-items:center;margin:55px 0;color:var(--muted);font-size:12px;letter-spacing:.55em}
+.direction{margin:1.7em 0;color:var(--muted);text-align:center;font:.72em/1.8 var(--sans)}
+.inner{
+  margin:2.2em 0;padding:17px 18px;border-left:2px solid color-mix(in srgb,var(--accent) 58%,transparent);
+  color:var(--text-soft);background:color-mix(in srgb,var(--surface-soft) 70%,transparent);font-style:italic
+}
+.inner.strong{color:var(--text);font-style:normal}
+.pov{
+  margin:75px 0 58px;padding:26px 20px;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);text-align:center
+}
+.pov small{display:block;color:var(--muted);font:900 10px var(--sans);letter-spacing:.18em}
+.pov strong{display:block;margin-top:7px;color:var(--reo);font-size:.9em;letter-spacing:.08em}
+
+.memory-card{
+  margin:2.7em 0;padding:24px 20px;border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--surface-soft) 80%,transparent),var(--surface))
+}
+.memory-card .memory-label{margin:0 0 13px;color:var(--accent);font:900 10px var(--sans);letter-spacing:.16em}
+.memory-card p{margin:0 0 1em}
+.memory-card p:last-child{margin-bottom:0}
+
+.ending{
+  margin:105px 0 30px;padding:70px 24px 45px;text-align:center;border:1px solid var(--line);
+  border-radius:34px;background:linear-gradient(150deg,var(--surface),var(--surface-soft));box-shadow:var(--shadow)
+}
+.ending-mark{margin-bottom:28px;color:var(--muted);letter-spacing:.45em}
+.ending h2{margin:0;color:var(--accent);font:900 11px var(--sans);letter-spacing:.22em}
+.ending-title{margin:12px 0 0;font:600 clamp(1.6rem,7vw,2.25rem)/1.55 var(--serif);letter-spacing:.07em}
+.ending-copy{max-width:32rem;margin:33px auto 0;font-size:14px;line-height:2.2}
+.next-label{margin-top:46px;color:var(--muted);font:900 10px var(--sans);letter-spacing:.2em}
+.next-title{margin:8px 0 20px;font-family:var(--serif)}
+.ending-actions{display:grid;gap:10px;width:min(100%,370px);margin:auto}
+.primary,.secondary{
+  display:flex;align-items:center;justify-content:center;min-height:53px;padding:12px 18px;
+  border-radius:999px;text-decoration:none;font:800 13px var(--sans)
+}
+.primary{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-deep));box-shadow:0 10px 25px color-mix(in srgb,var(--accent) 25%,transparent)}
+.secondary{color:var(--text-soft);border:1px solid var(--line);background:var(--surface)}
+footer{padding:28px 0 8px;color:var(--muted);text-align:center;font-size:10px;line-height:1.9}
+footer a{text-underline-offset:3px}
+
+@media(max-width:899px){
+  .layout{display:block;padding-top:12px}
+  .toc{display:none}
+  .current-scene{display:block}
+  .reader-bar-inner{align-items:flex-start}
+  .tool-btn,.tool-select{min-height:36px;font-size:10px}
+  .page{padding-left:15px;padding-right:15px}
+  .hero{margin-top:14px;padding:49px 21px 41px}
+  .scene{margin-bottom:68px}
+}
+@media(min-width:700px){
+  .ending-actions{grid-template-columns:1fr 1fr;width:min(100%,540px)}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="reading-progress"><span id="progressBar"></span></div>
+
+<header class="reader-bar">
+  <div class="reader-bar-inner">
+    <div class="reader-id">
+      <span class="reader-kicker">REO ROUTE 04 / READER</span>
+      <span class="reader-title">DON’T BE KIND TO ME ― 優しくしないで</span>
+    </div>
+    <div class="reader-actions">
+      <button class="tool-btn" id="fontBtn" type="button">明朝</button>
+      <button class="tool-btn" data-size="small" type="button">小</button>
+      <button class="tool-btn active" data-size="medium" type="button">中</button>
+      <button class="tool-btn" data-size="large" type="button">大</button>
+      <select class="tool-select" id="themeSelect" aria-label="テーマ">
+        <option value="light">Light</option>
+        <option value="sepia">Sepia</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="シーン一覧">
+  <p class="toc-label">SCENE INDEX</p>
+  <a href="#scene-01">01　名前で呼ぶ朝</a>
+  <a href="#scene-02">02　嬉しいほど怖い</a>
+  <a href="#scene-03">03　誰にでも優しい</a>
+  <a href="#scene-04">04　それ、俺だから？</a>
+  <a href="#scene-05">05　言えなかった答え</a>
+  <a href="#scene-06">06　一歩だけ遠く</a>
+  <a href="#scene-07">07　触れない手</a>
+  <a href="#scene-08">08　優しくしないで</a>
+  <a href="#scene-09">09　勝手に決めないで</a>
+  <a href="#scene-10">10　怖かっただけ</a>
+  <a href="#scene-11">11　好きだから離れる</a>
+  <a href="#scene-12">12　空いた隣</a>
+  <a href="#scene-13">13　追わなかった夜</a>
+  <a href="#scene-14">14　離れてほしくない</a>
+  <a href="#ending">ROUTE 04 END</a>
+</nav>
+
+<div class="reader-shell">
+<div class="current-scene" id="currentScene">SCENE 01</div>
+<main class="page">
+<article class="reader">
+<header class="hero">
+  <p class="eyebrow">REO ROUTE / CHAPTER 04</p>
+  <h1>DON’T BE KIND TO ME</h1>
+  <p class="hero-sub">優しくしないで</p>
+  <p class="hero-copy">
+    嫉妬してくれた。<br>
+    名前で呼んでほしいと言ってくれた。<br>
+    自分から抱きしめてくれた。<br><br>
+    ずっと欲しかったものが、少しずつ手に入り始めた。<br><br>
+    なのに玲央は、幸福になるほど怖くなる。<br><br>
+    ――それは本当に、恋だから？<br>
+    それとも結衣が、傷ついた人を放っておけないだけ？<br><br>
+    信じたいからこそ疑ってしまう。<br>
+    その弱さが、今度は二人の距離を揺らしていく。
+  </p>
+  <div class="route-lock">◆ ROUTE LOCK：REO / CHAPTER 04</div>
+</header>
+
+<div class="reading-note">
+  <strong>SETTING NOTE</strong><br>
+  結衣と玲央は、両親の再婚によって家族になった血縁のない義姉弟で、二人はいずれも成人です。<br>
+  本章はREO03「DON’T LOOK AWAY ― もう、逸らさないで」翌朝から開始します。REO03で結衣は初めて玲央への嫉妬を認め、「もう少しいて」と自分から求め、自分から抱きしめ、最後には「明日も名前で呼んで」と望みました。一方の玲央は、それらを喜びながらも「結衣の優しさを恋と勘違いしているだけではないか」という新しい不安を抱えています。本章では、その不安を理由に結衣の気持ちを勝手に決めてしまいかける玲央と、自分の感情の所有権を取り戻していく結衣を描きます。
+</div>
+
+<section class="scene" id="scene-01">
+  <div class="scene-head"><span class="scene-no">SCENE 01</span><h2>名前で呼ぶ朝</h2><p class="scene-meta">翌朝／自宅</p><div class="scene-rule"></div></div>
+
+  <p class="narration">目覚ましが鳴る少し前に、目が覚めた。</p>
+  <p class="narration">昨日なら、あと十分は布団に潜っていたと思う。</p>
+  <p class="narration">でも今日は。</p>
+  <p class="narration">玲央が、本当に名前で呼んでくれるのか気になった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……何それ」</p></div>
+
+  <p class="narration">自分のことなのに、少し呆れる。</p>
+  <p class="narration">顔を洗って階段を下りると、キッチンから卵を焼く音がした。</p>
+  <p class="narration">玲央はいつも通り、袖を少しまくってフライパンを持っている。</p>
+  <p class="narration">私の気配に気づいて、振り返った。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「おはよう、結衣」</p></div>
+
+  <p class="narration">胸の奥が、ふわっと軽くなった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「おはよう」</p></div>
+
+  <p class="narration">たった二文字で呼ばれただけ。</p>
+  <p class="narration">なのに、ちゃんと嬉しい。</p>
+  <p class="narration">玲央も、たぶん同じだった。</p>
+  <p class="narration">目が合った瞬間、口元が少し緩む。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「昨日のお願い、守った」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「お願いってほど大げさじゃないでしょ」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺には大げさなくらい嬉しかったから」</p></div>
+
+  <p class="narration">そう言って、玲央は私の前に皿を置く。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「ありがと、玲央」</p></div>
+
+  <p class="narration">玲央の手が止まった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……何？」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「今の、もう一回」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「やだ」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「即答」</p></div>
+
+  <p class="narration">笑う玲央を見て。</p>
+  <p class="narration">昨日、自分から抱きしめたことまで思い出して、頬が少し熱くなる。</p>
+  <p class="narration">恥ずかしい。</p>
+  <p class="narration">でも、もうなかったことにはしたくない。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「うん？」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「昨日のこと、変に気を遣わなくていいからね」</p><p class="line">「私が嫉妬したからって、誰と話すか変えたりしないで」</p></div>
+
+  <p class="narration">玲央の表情が、一瞬だけ止まった。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん」</p><p class="line">「それはしない」</p></div>
+
+  <p class="narration">柔らかい笑顔。</p>
+  <p class="narration">いつもの玲央。</p>
+  <p class="narration">だから、そのときは。</p>
+  <p class="narration">その一瞬の間に何がよぎったのか、私は気づかなかった。</p>
+</section>
+
+<section class="scene" id="scene-02">
+  <div class="scene-head"><span class="scene-no">SCENE 02</span><h2>嬉しいほど怖い</h2><p class="scene-meta">同日／玲央 POV</p><div class="scene-rule"></div></div>
+
+  <div class="pov"><small>POV SHIFT</small><strong>玲央</strong></div>
+
+  <p class="narration">名前で呼んで、と言われた。</p>
+  <p class="narration">嫉妬した、と言われた。</p>
+  <p class="narration">もう少しいて、と言われた。</p>
+  <p class="narration">自分から抱きしめてもらった。</p>
+
+  <p class="narration">何度思い返しても、現実感がない。</p>
+
+  <div class="inner strong">欲しかったものが、少しずつ手に入っている。<br><br>だったら、もっと嬉しいだけでいいはずなのに。</div>
+
+  <p class="narration">嬉しいほど。</p>
+  <p class="narration">怖い。</p>
+
+  <p class="narration">結衣は、人が本当に困っているときだけ妙に鋭い。</p>
+  <p class="narration">昔からそうだった。</p>
+  <p class="narration">泣いている人がいたら、一人にしない。</p>
+  <p class="narration">怖がっている人がいたら、自分だって怖いくせに隣に立つ。</p>
+  <p class="narration">本人が自分のことを諦めても、「そんなことない」と言ってくれる。</p>
+
+  <p class="narration">俺が好きになったところ。</p>
+  <p class="narration">俺を救ったところ。</p>
+  <p class="narration">だからこそ。</p>
+
+  <div class="inner strong">もし今の全部が。<br><br>俺が傷つくと分かったから、結衣が差し出してくれているものだったら？</div>
+
+  <p class="narration">そんなわけない。</p>
+  <p class="narration">そう思いたい。</p>
+
+  <p class="narration">嫉妬したのは、結衣自身の感情だ。</p>
+  <p class="narration">抱きしめたのも、結衣が自分で聞いて、自分から来てくれた。</p>
+  <p class="narration">頭では分かっている。</p>
+
+  <p class="narration">それでも。</p>
+  <p class="narration">俺が告白したあとだった。</p>
+  <p class="narration">何年も好きだったと知ったあとだった。</p>
+  <p class="narration">選ばれたいと、何度も言ったあとだった。</p>
+
+  <p class="narration">俺が欲しがるたび。</p>
+  <p class="narration">結衣は、一つずつ考えてくれた。</p>
+  <p class="narration">だから。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……俺が欲しいって言ったから、くれてるだけだったら？」</p></div>
+
+  <p class="narration">一度浮かんだ考えが、消えない。</p>
+
+  <p class="narration">本当は。</p>
+  <p class="narration">結衣が誰かに笑うたび、その相手を見たくない。</p>
+  <p class="narration">困っている人へ手を伸ばすたび、その手が自分だけに向けばいいと思う。</p>
+  <p class="narration">メッセージも、帰る場所も、名前を呼ぶ声も。</p>
+  <p class="narration">全部、自分に向けてほしい。</p>
+
+  <div class="inner strong">でも、それを叶えさせたら。<br><br>「選ばれた」んじゃなくて、俺が結衣の世界を狭くしただけになる。</div>
+
+  <p class="narration">欲しい。</p>
+  <p class="narration">だからこそ、怖い。</p>
+
+  <p class="narration">確認したい。</p>
+  <p class="narration">それ、俺だから？</p>
+
+  <p class="narration">そう聞けばいい。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">答えが違ったら。</p>
+  <p class="narration">今まで受け取ったものまで、全部別の意味になる気がした。</p>
+
+  <div class="inner">欲しかった答えに近づいたからこそ、<br>間違いだったと知るのが前より怖い。</div>
+</section>
+
+<section class="scene" id="scene-03">
+  <div class="scene-head"><span class="scene-no">SCENE 03</span><h2>誰にでも優しい</h2><p class="scene-meta">数日後／大学前</p><div class="scene-rule"></div></div>
+
+  <p class="narration">その日は、玲央と駅で待ち合わせていた。</p>
+  <p class="narration">講義が少し早く終わったから、予定より十分ほど早く大学を出る。</p>
+
+  <p class="narration">門の近くで。</p>
+  <p class="narration">同じ講義を取っている子が、資料を落とした。</p>
+  <p class="narration">風で紙が散る。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「待って、拾う！」</p></div>
+
+  <p class="narration">反射的に走る。</p>
+  <p class="narration">数枚を追いかけて、一緒に拾う。</p>
+  <p class="narration">最後の一枚を渡すと、その子が小さく息を吐いた。</p>
+
+  <div class="direction">「今日の発表も失敗したし、もう最悪」</div>
+
+  <p class="narration">泣くほどではない。</p>
+  <p class="narration">でも、笑ってごまかしている顔だった。</p>
+  <p class="narration">なんとなく放っておけなくて、私は足を止めた。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「じゃあ、駅まで一緒に行こ」</p><p class="line">「一人で反省会すると絶対悪い方に考えるでしょ」</p></div>
+
+  <p class="narration">相手が少し笑う。</p>
+  <p class="narration">私も笑った。</p>
+
+  <p class="narration">そのとき。</p>
+  <p class="narration">少し離れた場所に、玲央が立っていることに気づいた。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央！」</p></div>
+
+  <p class="narration">手を振る。</p>
+  <p class="narration">玲央も笑った。</p>
+  <p class="narration">いつもの笑顔。</p>
+  <p class="narration">でも近づいてくるまでの数秒。</p>
+  <p class="narration">玲央の視線は、私と、その子の間を静かに往復していた。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「ごめん、ちょっとだけ一緒に駅まで行ってもいい？」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「もちろん」</p></div>
+
+  <p class="narration">即答だった。</p>
+  <p class="narration">玲央は、相手にも自然に会釈する。</p>
+
+  <div class="beat">◇</div>
+
+  <p class="narration">改札でその子と別れたあと。</p>
+  <p class="narration">二人きりになってから、玲央がぽつりと言った。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「結衣らしいね」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何が？」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「誰かがしんどそうだと、放っておけないところ」</p></div>
+
+  <p class="narration">褒められた。</p>
+  <p class="narration">そう聞こえる言葉だった。</p>
+  <p class="narration">なのに。</p>
+  <p class="narration">玲央は、少しだけ寂しそうだった。</p>
+</section>
+
+<section class="scene" id="scene-04">
+  <div class="scene-head"><span class="scene-no">SCENE 04</span><h2>それ、俺だから？</h2><p class="scene-meta">夕方／帰り道</p><div class="scene-rule"></div></div>
+
+  <p class="narration">駅から家までの道。</p>
+  <p class="narration">玲央は、いつもより静かだった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央、疲れた？」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「ちょっと考え事」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何？」</p></div>
+
+  <p class="narration">玲央がこちらを見る。</p>
+  <p class="narration">何か言おうとして。</p>
+  <p class="narration">一度、やめる。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「聞いていい？」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うん」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「この前、嫉妬したって言ってくれたでしょ」</p></div>
+
+  <p class="narration">顔が熱くなる。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……うん」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺が他の人と近いの、嫌だったって」</p></div>
+
+  <p class="narration">また頷く。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「それって」</p></div>
+
+  <p class="narration">玲央が足を止めた。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺だから？」</p></div>
+
+  <p class="narration">胸が鳴る。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「え？」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺が玲央だから、嫌だった？」</p><p class="line">「それとも、俺が結衣のこと好きだって知ってるから？」</p></div>
+
+  <p class="narration">質問の意味が、少しずつ分かってくる。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+
+  <p class="narration">玲央は少し笑う。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">その笑顔は、逃げる前の笑顔だった。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「今日も、あの子のこと放っておけなかったでしょ」</p><p class="line">「結衣、昔からそういう人だから」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「そういう人って」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「優しい人」</p></div>
+
+  <p class="narration">褒め言葉のはずだった。</p>
+  <p class="narration">なのに。</p>
+  <p class="narration">胸が痛かった。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺が傷つくって分かったから」</p><p class="line">「放っておけなくなっただけじゃない？」</p></div>
+
+  <p class="narration">責められているようには聞こえなかった。</p>
+  <p class="narration">むしろ玲央自身が、その答えを一番怖がっている。</p>
+  <p class="narration">だからこそ。</p>
+  <p class="narration">簡単に「違う」と言って安心させるのも、違う気がした。</p>
+</section>
+
+<section class="scene" id="scene-05">
+  <div class="scene-head"><span class="scene-no">SCENE 05</span><h2>言えなかった答え</h2><p class="scene-meta">夕方／帰り道</p><div class="scene-rule"></div></div>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……違うと思う」</p></div>
+
+  <p class="narration">自分でも、弱い答えだと思った。</p>
+  <p class="narration">玲央は何も言わない。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「だって、嫉妬したの初めてだったし」</p><p class="line">「名前で呼んでほしいって思ったのも」</p><p class="line">「もう少しいてって言ったのも」</p><p class="line">「自分から抱きしめたいって思ったのも、玲央だけだよ」</p></div>
+
+  <p class="narration">言葉にすると。</p>
+  <p class="narration">自分で思っていたより、ずっとはっきりしていた。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「だから、“誰にでも同じ”ではない」</p></div>
+
+  <p class="narration">玲央の目が揺れた。</p>
+  <p class="narration">確かに、嬉しそうだった。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">まだ何かが残っている。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「じゃあ」</p><p class="line">「その“玲央だけ”って、恋だから？」</p></div>
+
+  <p class="narration">今度こそ。</p>
+  <p class="narration">言葉が止まった。</p>
+
+  <p class="narration">玲央だけ。</p>
+  <p class="narration">そこまでは分かる。</p>
+  <p class="narration">特別。</p>
+  <p class="narration">それも、もう否定できない。</p>
+
+  <p class="narration">でも。</p>
+  <p class="narration">それが家族として積み重ねた特別と、恋の特別のどこで分かれるのか。</p>
+  <p class="narration">まだ、自分の中で名前をつけられない。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……そこは、まだ分かんない」</p></div>
+
+  <p class="narration">玲央の睫毛が、ほんの少し伏せられた。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「でも、分かんないからって」</p><p class="line">「今まで言ったことが嘘になるわけじゃないよ」</p></div>
+
+  <p class="narration">玲央は、すぐには答えなかった。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん」</p></div>
+
+  <p class="narration">その返事は、理解した声だった。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">信じきれた声ではなかった。</p>
+</section>
+
+<section class="scene" id="scene-06">
+  <div class="scene-head"><span class="scene-no">SCENE 06</span><h2>一歩だけ遠く</h2><p class="scene-meta">翌朝／自宅</p><div class="scene-rule"></div></div>
+
+  <p class="narration">次の日。</p>
+  <p class="narration">玲央は、いつも通り朝食を作っていた。</p>
+  <p class="narration">私が牛乳をこぼしかければティッシュを差し出す。</p>
+  <p class="narration">鞄の口が開いていれば、目だけで教えてくれる。</p>
+
+  <p class="narration">全部、いつも通り。</p>
+  <p class="narration">ただ。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「おはよう、姉さん」</p></div>
+
+  <p class="narration">名前ではなかった。</p>
+  <p class="narration">胸が小さく沈む。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……おはよう」</p></div>
+
+  <p class="narration">昨日までなら。</p>
+  <p class="narration">「結衣って呼んで」と言えたはずだった。</p>
+  <p class="narration">でも、玲央が意図的に戻したことが分かってしまって。</p>
+  <p class="narration">言葉が喉につかえた。</p>
+
+  <p class="narration">家を出る。</p>
+  <p class="narration">駅までの道。</p>
+  <p class="narration">玲央はいつも通り、車道側を歩く。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">半歩だけ遠い。</p>
+
+  <p class="narration">昨日までは、肩が触れそうだった。</p>
+  <p class="narration">今日は、届かない。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「ん？」</p></div>
+
+  <p class="narration">呼んだら、すぐ振り向く。</p>
+  <p class="narration">そこは変わらない。</p>
+  <p class="narration">だから余計に。</p>
+  <p class="narration">自分から引かれていることが分かる。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……何でもない」</p></div>
+
+  <p class="narration">玲央は、少しだけ寂しそうに笑った。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「そっか」</p></div>
+
+  <p class="narration">一歩だけ。</p>
+  <p class="narration">たった一歩だけ。</p>
+  <p class="narration">なのに。</p>
+  <p class="narration">こんなに遠いと思わなかった。</p>
+</section>
+
+<section class="scene" id="scene-07">
+  <div class="scene-head"><span class="scene-no">SCENE 07</span><h2>触れない手</h2><p class="scene-meta">数日後／雨の日</p><div class="scene-rule"></div></div>
+
+  <p class="narration">夕方から、急に雨が降った。</p>
+  <p class="narration">私は傘を忘れた。</p>
+
+  <p class="narration">以前なら。</p>
+  <p class="narration">玲央が迎えに来たかもしれない。</p>
+
+  <p class="narration">そう思った自分に気づいて、少し嫌になる。</p>
+  <p class="narration">玲央が来ることを、いつの間にか当然みたいに思っていた。</p>
+
+  <p class="narration">駅前の軒下で。</p>
+  <p class="narration">雨脚が弱くなるのを待つ。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / REO</p><p>『雨すごいけど大丈夫？』</p></div>
+
+  <p class="narration">画面を見る。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / YUI → REO</p><p>『傘忘れた』</p></div>
+
+  <p class="narration">すぐ既読になる。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / REO</p><p>『駅ならコンビニあるよね』</p><p>『買えなかったら言って』</p></div>
+
+  <p class="narration">最後の一行に、指が止まった。</p>
+
+  <p class="narration">REO03で玲央は言った。</p>
+
+  <div class="inner strong">『俺にいてほしいなら、いてって言って』<br>『結衣が欲しいもの、俺に教えて』</div>
+
+  <p class="narration">言っていい。</p>
+  <p class="narration">今も、たぶんそうなのだと思う。</p>
+
+  <p class="narration">迎えに来て。</p>
+  <p class="narration">本当はそう送りたい。</p>
+
+  <p class="narration">でも。</p>
+  <p class="narration">今それを送ったら。</p>
+  <p class="narration">玲央はまた、「自分が傷ついているから結衣が合わせている」と思うんじゃないか。</p>
+  <p class="narration">そんなふうに疑われるのが嫌で。</p>
+  <p class="narration">私は、自分の望みまで引っ込めた。</p>
+
+  <p class="narration">結局。</p>
+  <p class="narration">傘を買った。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / YUI → REO</p><p>『買えた！帰るね』</p></div>
+  <div class="memory-card"><p class="memory-label">MESSAGE / REO</p><p>『よかった』</p><p>『気をつけて』</p></div>
+
+  <p class="narration">優しい。</p>
+  <p class="narration">ちゃんと優しい。</p>
+  <p class="narration">でも。</p>
+
+  <div class="inner strong">欲しかったのは、「大丈夫？」じゃなくて。<br><br>私が望んだときに来てくれる玲央だった。</div>
+</section>
+
+<section class="scene" id="scene-08">
+  <div class="scene-head"><span class="scene-no">SCENE 08</span><h2>優しくしないで</h2><p class="scene-meta">夜／リビング</p><div class="scene-rule"></div></div>
+
+  <p class="narration">帰宅すると。</p>
+  <p class="narration">玲央がタオルを持ってきた。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「髪、濡れてる」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「ちょっとだけ」</p></div>
+
+  <p class="narration">玲央が手を伸ばす。</p>
+  <p class="narration">途中で止まる。</p>
+  <p class="narration">そして、タオルだけを差し出した。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「風邪ひかないようにね」</p></div>
+
+  <p class="narration">また。</p>
+  <p class="narration">一歩遠い。</p>
+  <p class="narration">胸の中で、何かが切れた。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「うん？」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「最近、変」</p></div>
+
+  <p class="narration">玲央の表情が止まる。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「そう？」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「そう」</p><p class="line">「名前で呼ばなくなった」</p><p class="line">「歩くとき遠い」</p><p class="line">「触ろうとして、やめる」</p><p class="line">「今日だって」</p></div>
+
+  <p class="narration">言葉が詰まる。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「今日？」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……前なら、迎えに来た」</p></div>
+
+  <p class="narration">言ってしまった。</p>
+  <p class="narration">わがままだと思う。</p>
+  <p class="narration">一人で帰れる。</p>
+  <p class="narration">玲央が来る義務なんてない。</p>
+
+  <p class="narration">でも玲央は、怒らなかった。</p>
+  <p class="narration">ただ、苦しそうに笑った。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……迎えに行きたかったよ」</p></div>
+
+  <p class="narration">予想していなかった答えだった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「じゃあ何で」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「行ったら、嬉しい？」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「嬉しいよ」</p></div>
+
+  <p class="narration">即答した。</p>
+  <p class="narration">玲央の目が揺れる。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「その嬉しいを」</p><p class="line">「俺が都合よく、恋に変換しそうで怖い」</p></div>
+
+  <p class="narration">胸が痛む。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺が近づいたら、結衣は拒めないかもしれない」</p><p class="line">「俺が欲しいって言ったら、叶えようとするかもしれない」</p><p class="line">「俺が傷ついた顔したら、そばにいてくれるかもしれない」</p></div>
+
+  <p class="narration">玲央の声が、少しずつ掠れる。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「本当は、結衣が他の人に優しくするのも嫌になる」</p><p class="line">「俺にだけ向けてって言いたくなる」</p><p class="line">「でも、そんなこと言ったら」</p><p class="line">「結衣が結衣じゃなくなる」</p></div>
+
+  <p class="narration">初めて。</p>
+  <p class="narration">玲央の中の、綺麗じゃない欲がそのまま言葉になった。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「だから怖い」</p><p class="line">「結衣の優しさを恋だと思い込んで」</p><p class="line">「そのうち、優しさごと独り占めしたくなる自分が」</p></div>
+
+  <p class="narration">私は、すぐに言葉を返せなかった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「じゃあ、どうしたらいいの」</p></div>
+
+  <p class="narration">玲央が黙る。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「優しくするなってこと？」</p></div>
+
+  <p class="narration">長い沈黙。</p>
+  <p class="narration">玲央は、泣きそうな顔で笑った。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……今だけ」</p><p class="line">「俺が勝手に期待するくらいなら」</p><p class="line">「優しくしないで、って思う」</p></div>
+</section>
+
+<section class="scene" id="scene-09">
+  <div class="scene-head"><span class="scene-no">SCENE 09</span><h2>勝手に決めないで</h2><p class="scene-meta">夜／リビング</p><div class="scene-rule"></div></div>
+
+  <p class="narration">頭の中が、真っ白になった。</p>
+  <p class="narration">悲しいより先に。</p>
+  <p class="narration">腹が立った。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それ、ずるい」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「うんじゃない」</p></div>
+
+  <p class="narration">声が強くなる。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「私、玲央に何かしてあげようとしてるつもりない」</p><p class="line">「嫉妬したのも」</p><p class="line">「名前で呼んでほしいって言ったのも」</p><p class="line">「抱きしめたのも」</p></div>
+
+  <p class="narration">玲央が目を伏せる。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「私がそうしたかったからした」</p></div>
+
+  <p class="narration">言葉にして。</p>
+  <p class="narration">初めて自分でも、はっきり分かった。</p>
+
+  <p class="narration">玲央のためだけじゃない。</p>
+  <p class="narration">私が嫌だった。</p>
+  <p class="narration">私が寂しかった。</p>
+  <p class="narration">私が近づきたかった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それを玲央が勝手に“優しさ”って決めないで」</p></div>
+
+  <p class="narration">玲央の目が揺れた。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……ごめん」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「謝ってほしいんじゃない」</p></div>
+
+  <p class="narration">胸が苦しい。</p>
+  <p class="narration">玲央が好きかは、まだ分からない。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">自分の気持ちを、本人にまで別物だと決められるのは嫌だった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「玲央ほど、自分の気持ち分かってないよ」</p><p class="line">「だから、すぐ“好き”って言えない」</p></div>
+
+  <p class="narration">玲央は黙って聞いている。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「でも分からないことと、全部嘘なことは違うでしょ」</p><p class="line">「玲央が待つって言ってくれたのは」</p><p class="line">「私が自分で答えを見つけるためじゃなかったの？」</p></div>
+
+  <p class="narration">その言葉に。</p>
+  <p class="narration">玲央は顔を歪めた。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……そうだよ」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「じゃあ、私より先に答え決めないで」</p></div>
+
+  <p class="narration">玲央は。</p>
+  <p class="narration">初めて、私から目を逸らした。</p>
+</section>
+
+<section class="scene" id="scene-10">
+  <div class="scene-head"><span class="scene-no">SCENE 10</span><h2>怖かっただけ</h2><p class="scene-meta">夜／リビング</p><div class="scene-rule"></div></div>
+
+  <p class="narration">玲央が目を伏せたまま、ゆっくり話す。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺、結衣のことなら分かってるって思ってた」</p></div>
+
+  <p class="narration">少し笑う。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「何飲みたいかとか」</p><p class="line">「忘れ物するタイミングとか」</p><p class="line">「眠いときの顔とか」</p><p class="line">「嫌なことあったとき、平気なふりする癖とか」</p></div>
+
+  <p class="narration">一つずつ。</p>
+  <p class="narration">本当に私を見てきた人の言葉。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「でも、一番知りたいことだけ全然分からない」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「一番？」</p></div>
+
+  <p class="narration">玲央が、ようやくこちらを見る。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「結衣が俺を、どれくらい欲しいのか」</p></div>
+
+  <p class="narration">胸が跳ねる。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「必要かじゃなくて」</p><p class="line">「いなくても一人で生きていけるのに」</p><p class="line">「それでも俺がいいって、どれくらい思ってくれてるのか」</p></div>
+
+  <p class="narration">玲央の声は穏やかだった。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">膝の上の手だけが、強く握られている。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「分からないから」</p><p class="line">「結衣がくれるもの、一個ずつ疑ってる」</p></div>
+
+  <p class="narration">苦しそうに笑う。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「欲しいくせに」</p><p class="line">「受け取ったあとで、本物かどうか確かめたくなる」</p><p class="line">「……最低だよね」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「最低とは思わない」</p></div>
+
+  <p class="narration">すぐに答えた。</p>
+  <p class="narration">玲央が少し驚く。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「でも、腹立つ」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「私が頑張って出した答えまで」</p><p class="line">「玲央が勝手に違うって決めるのは嫌」</p></div>
+
+  <p class="narration">玲央が目を閉じる。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……怖かっただけ」</p></div>
+
+  <p class="narration">小さな声だった。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「結衣が好きだから」</p><p class="line">「違ったとき、立ち直れる気がしなくて」</p><p class="line">「だから、先に“違うかもしれない”って思っておけば」</p><p class="line">「少しは壊れずに済む気がした」</p></div>
+
+  <p class="narration">胸の奥が。</p>
+  <p class="narration">痛いくらい締めつけられる。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それで私まで遠ざけたら」</p><p class="line">「結局、自分で怖い方にしてるじゃん」</p></div>
+
+  <p class="narration">玲央は、返事の代わりに小さく笑った。</p>
+  <p class="narration">否定できない顔だった。</p>
+</section>
+
+<section class="scene" id="scene-11">
+  <div class="scene-head"><span class="scene-no">SCENE 11</span><h2>好きだから離れる</h2><p class="scene-meta">夜／リビング</p><div class="scene-rule"></div></div>
+
+  <p class="narration">しばらく。</p>
+  <p class="narration">どちらも何も言わなかった。</p>
+
+  <p class="narration">玲央が、ゆっくり息を吐く。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「一個、お願いしていい？」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何？」</p></div>
+
+  <p class="narration">玲央は少し迷ってから。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「明日一日だけ」</p><p class="line">「俺から、恋人みたいな近づき方するのやめてみてもいい？」</p></div>
+
+  <p class="narration">言葉の意味を理解するまで。</p>
+  <p class="narration">数秒かかった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……距離置くってこと？」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「一日だけ」</p><p class="line">「家では普通にする」</p><p class="line">「困ってたら助けるし、話しかけられたら話す」</p><p class="line">「ただ、俺から名前で呼んだり」</p><p class="line">「一緒に帰ろうって誘ったり」</p><p class="line">「触りたいって言ったりするのを、やめる」</p></div>
+
+  <p class="narration">胸がざわつく。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「勝手に決めないでって、今言ったばっかりなんだけど」</p></div>
+
+  <p class="narration">玲央が苦笑した。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「だからお願いしてる」</p><p class="line">「結衣が嫌なら、やめる」</p></div>
+
+  <p class="narration">そこだけは。</p>
+  <p class="narration">以前の玲央と違っていた。</p>
+  <p class="narration">距離を取ることまで、私の答えを無視して押しつけようとはしない。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「何のため？」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「結衣に答えを出させるためじゃない」</p><p class="line">「俺が、自分の不安を結衣の気持ちにすり替えないため」</p></div>
+
+  <p class="narration">玲央は、自分の手を見る。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「俺が近くにいると」</p><p class="line">「結衣が何かしてくれるたび、意味を欲しがるから」</p><p class="line">「一日だけ、俺から欲しがるのを止めてみたい」</p></div>
+
+  <p class="narration">嫌だ。</p>
+  <p class="narration">そう思った。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">玲央が逃げたいだけではなく、自分の不安を自分で扱おうとしていることも分かった。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……一日だけなら」</p></div>
+
+  <p class="narration">玲央が顔を上げる。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「でも、私が呼んだら来て」</p></div>
+
+  <p class="narration">玲央の目が、少し見開かれた。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……うん」</p></div>
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「それは“優しさ”じゃなくて、私のお願いだから」</p></div>
+
+  <p class="narration">玲央は、今度こそまっすぐ頷いた。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「分かった」</p><p class="line">「呼ばれたら行く」</p></div>
+
+  <p class="narration">好きだから離れる。</p>
+  <p class="narration">その言葉は、まだよく分からない。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">一日だけ。</p>
+  <p class="narration">二人とも、自分の気持ちを自分で確かめることにした。</p>
+</section>
+
+<section class="scene" id="scene-12">
+  <div class="scene-head"><span class="scene-no">SCENE 12</span><h2>空いた隣</h2><p class="scene-meta">翌日／一日</p><div class="scene-rule"></div></div>
+
+  <p class="narration">次の日。</p>
+  <p class="narration">玲央は、本当に昨日の約束を守った。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「おはよう、姉さん」</p></div>
+
+  <p class="narration">朝。</p>
+  <p class="narration">名前ではない。</p>
+
+  <p class="narration">朝食はいつも通り用意されている。</p>
+  <p class="narration">でも、向かい側に座る。</p>
+  <p class="narration">隣ではない。</p>
+
+  <p class="narration">駅までの道。</p>
+  <p class="narration">玲央は少し早く家を出た。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / REO</p><p>『今日は先に行くね』</p></div>
+
+  <p class="narration">それだけ。</p>
+
+  <p class="narration">大学。</p>
+  <p class="narration">昼休み。</p>
+  <p class="narration">いつもなら来るメッセージが来ない。</p>
+
+  <div class="memory-card"><p class="memory-label">USUAL MESSAGE / MEMORY</p><p>『ちゃんと昼食べた？』</p></div>
+
+  <p class="narration">今日は、何もない。</p>
+
+  <p class="narration">玲央は約束を守っているだけ。</p>
+  <p class="narration">私が嫌なら呼べばいい。</p>
+  <p class="narration">「呼ばれたら行く」と言ってくれた。</p>
+
+  <p class="narration">それなのに。</p>
+  <p class="narration">スマートフォンを開いては、閉じる。</p>
+
+  <p class="narration">夕方。</p>
+  <p class="narration">改札の向こう。</p>
+  <p class="narration">昨日までなら、玲央を探していた。</p>
+
+  <p class="narration">今日は。</p>
+  <p class="narration">待ち合わせをしていない。</p>
+  <p class="narration">だから探す必要はない。</p>
+
+  <p class="narration">分かっているのに。</p>
+  <p class="narration">何度も顔を上げる。</p>
+
+  <p class="narration">電車の中。</p>
+  <p class="narration">隣が空いている。</p>
+
+  <p class="narration">帰り道。</p>
+  <p class="narration">車道側が空いている。</p>
+
+  <p class="narration">家。</p>
+  <p class="narration">玄関を開ける。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「ただいま」</p></div>
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「おかえり」</p></div>
+
+  <p class="narration">いる。</p>
+  <p class="narration">ちゃんと家にいる。</p>
+  <p class="narration">普通に話せる。</p>
+
+  <p class="narration">なのに。</p>
+  <p class="narration">一日中。</p>
+  <p class="narration">玲央がいなかった気がした。</p>
+
+  <div class="inner strong">玲央がいなくても、一日は普通に終わる。<br><br>でも。<br><br>普通に終わることと、平気なことは同じじゃなかった。</div>
+</section>
+
+<section class="scene" id="scene-13">
+  <div class="scene-head"><span class="scene-no">SCENE 13</span><h2>追わなかった夜</h2><p class="scene-meta">夜／自宅</p><div class="scene-rule"></div></div>
+
+  <p class="narration">夕食が終わる。</p>
+  <p class="narration">玲央は食器を片づける。</p>
+  <p class="narration">私はソファに座る。</p>
+
+  <p class="narration">いつもなら。</p>
+  <p class="narration">玲央も隣に来る。</p>
+
+  <p class="narration">今日は。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「じゃあ、俺部屋戻るね」</p></div>
+
+  <p class="narration">そのまま階段へ向かう。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……玲央」</p></div>
+
+  <p class="narration">玲央が振り返る。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「どうした？」</p></div>
+
+  <p class="narration">行かないで。</p>
+  <p class="narration">一緒にいて。</p>
+  <p class="narration">そう言えば、玲央は来る。</p>
+  <p class="narration">昨日、そう約束した。</p>
+
+  <p class="narration">だからこそ。</p>
+  <p class="narration">今ここで呼ぶのか。</p>
+  <p class="narration">一日という約束を最後までやってみるのか。</p>
+  <p class="narration">私は迷った。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……おやすみ」</p></div>
+
+  <p class="narration">玲央の目が、ほんの少しだけ揺れた。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「おやすみ、姉さん」</p></div>
+
+  <p class="narration">階段を上がっていく。</p>
+  <p class="narration">一段。</p>
+  <p class="narration">二段。</p>
+  <p class="narration">三段。</p>
+  <p class="narration">足音が遠くなる。</p>
+
+  <p class="narration">私は。</p>
+  <p class="narration">追わなかった。</p>
+
+  <div class="beat">◇</div>
+
+  <p class="narration">数分後。</p>
+  <p class="narration">玲央の部屋の扉が閉まる音がした。</p>
+
+  <p class="narration">その瞬間。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「……やだ」</p></div>
+
+  <p class="narration">誰もいないリビングで。</p>
+  <p class="narration">声が出た。</p>
+
+  <p class="narration">行かないで。</p>
+  <p class="narration">一緒にいて。</p>
+  <p class="narration">名前で呼んで。</p>
+  <p class="narration">隣に座って。</p>
+
+  <p class="narration">全部。</p>
+  <p class="narration">玲央が求めたからじゃない。</p>
+
+  <p class="narration">今。</p>
+  <p class="narration">玲央は何も求めていない。</p>
+  <p class="narration">むしろ、私が呼ぶまで来ないと決めている。</p>
+
+  <div class="inner strong">それでも私が玲央にいてほしいと思っていることだけは。<br><br>誰のためでもない。</div>
+
+  <p class="narration">その答えに気づいた瞬間。</p>
+  <p class="narration">胸が熱くなった。</p>
+
+  <p class="narration">「好き」まで、まだ一息ある。</p>
+  <p class="narration">でも。</p>
+  <p class="narration">「玲央が欲しい」は、もうごまかせなかった。</p>
+</section>
+
+<section class="scene" id="scene-14">
+  <div class="scene-head"><span class="scene-no">SCENE 14</span><h2>離れてほしくない</h2><p class="scene-meta">翌朝／結衣 POV → 玲央 POV</p><div class="scene-rule"></div></div>
+
+  <p class="narration">朝。</p>
+  <p class="narration">目が覚める。</p>
+  <p class="narration">昨日より早い。</p>
+
+  <p class="narration">一日だけの約束は、もう終わった。</p>
+  <p class="narration">だから。</p>
+  <p class="narration">今日は、自分から言う。</p>
+
+  <p class="narration">玲央がいる時間に下へ行きたかった。</p>
+  <p class="narration">リビングへ降りる。</p>
+
+  <p class="narration">でも。</p>
+  <p class="narration">玲央はいなかった。</p>
+
+  <p class="narration">テーブルの上に。</p>
+  <p class="narration">朝食と、小さなメモ。</p>
+
+  <div class="memory-card"><p class="memory-label">NOTE / REO</p><p>『今日は少し早いので先に出ます。朝ごはん食べてね』</p></div>
+
+  <p class="narration">たったそれだけ。</p>
+  <p class="narration">名前も。</p>
+  <p class="narration">姉さんも。</p>
+  <p class="narration">何もない。</p>
+
+  <p class="narration">昨日の一日で。</p>
+  <p class="narration">玲央が求めてこなくても、自分が玲央を探していることを知った。</p>
+  <p class="narration">隣が空けば寂しい。</p>
+  <p class="narration">名前で呼ばれなければ寂しい。</p>
+  <p class="narration">帰り道にいなければ、探してしまう。</p>
+
+  <p class="narration">これは。</p>
+  <p class="narration">玲央が傷ついているからじゃない。</p>
+
+  <p class="narration">むしろ玲央は。</p>
+  <p class="narration">私に何も求めず、自分の不安を自分で抱えようとしていた。</p>
+
+  <p class="narration">それでも。</p>
+
+  <div class="dialogue yui"><div class="speaker">結衣</div><p class="line">「離れてほしくない」</p></div>
+
+  <p class="narration">口にした瞬間。</p>
+  <p class="narration">昨日までより、はっきりした。</p>
+
+  <div class="inner strong">「かわいそうだから」ではない。<br><br>「放っておけないから」でもない。<br><br>私が寂しいから。<br>私が玲央にいてほしいから。</div>
+
+  <p class="narration">スマートフォンを掴む。</p>
+
+  <div class="memory-card"><p class="memory-label">DRAFT / YUI</p><p>『玲央、今日一緒に帰りたい』</p></div>
+
+  <p class="narration">打つ。</p>
+  <p class="narration">送ろうとして。</p>
+  <p class="narration">一度だけ止まる。</p>
+
+  <p class="narration">今までなら。</p>
+  <p class="narration">玲央がどう受け取るかを先に考えた。</p>
+
+  <p class="narration">喜ぶかな。</p>
+  <p class="narration">期待させすぎないかな。</p>
+  <p class="narration">また勘違いさせないかな。</p>
+
+  <p class="narration">でも。</p>
+  <p class="narration">玲央に言われた。</p>
+  <p class="narration">欲しいものを教えて、と。</p>
+
+  <p class="narration">今日は。</p>
+  <p class="narration">自分の気持ちを、自分のものとして渡す。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / YUI → REO</p><p>『玲央』</p><p>『今日、一緒に帰りたい』</p><p>『玲央が寂しそうだからじゃなくて、私が一緒に帰りたい』</p></div>
+
+  <p class="narration">送信。</p>
+
+  <p class="narration">数秒。</p>
+  <p class="narration">十秒。</p>
+  <p class="narration">一分。</p>
+
+  <p class="narration">既読にならない。</p>
+  <p class="narration">心臓が落ち着かない。</p>
+
+  <p class="narration">やっと。</p>
+  <p class="narration">既読。</p>
+
+  <p class="narration">返信は。</p>
+  <p class="narration">すぐには来なかった。</p>
+
+  <div class="beat">◇</div>
+
+  <div class="pov"><small>POV SHIFT</small><strong>玲央</strong></div>
+
+  <p class="narration">画面に。</p>
+  <p class="narration">結衣からのメッセージ。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / YUI</p><p>『玲央』</p><p>『今日、一緒に帰りたい』</p><p>『玲央が寂しそうだからじゃなくて、私が一緒に帰りたい』</p></div>
+
+  <p class="narration">指が止まる。</p>
+
+  <p class="narration">嬉しい。</p>
+  <p class="narration">反射的に、そう思った。</p>
+
+  <p class="narration">でも。</p>
+  <p class="narration">すぐに、いつもの疑いが浮かびかける。</p>
+
+  <div class="inner">昨日、俺が距離を置いたから？<br>結衣が気を遣って――</div>
+
+  <p class="narration">そこまで考えて。</p>
+  <p class="narration">止めた。</p>
+
+  <p class="narration">また同じだ。</p>
+  <p class="narration">結衣の気持ちを、聞く前から俺が決めようとしている。</p>
+
+  <p class="narration">しかも今回は。</p>
+  <p class="narration">結衣が、自分の言葉で理由まで書いてくれた。</p>
+
+  <div class="inner strong">『私が一緒に帰りたい』</div>
+
+  <p class="narration">信じたい。</p>
+  <p class="narration">違う。</p>
+  <p class="narration">信じる。</p>
+
+  <p class="narration">怖さが消えてからじゃない。</p>
+  <p class="narration">怖いまま、結衣の言葉を結衣のものとして受け取る。</p>
+
+  <div class="memory-card"><p class="memory-label">MESSAGE / REO → YUI</p><p>『分かった』</p><p>『駅で待ってる』</p><p>『……俺も、一緒に帰りたい』</p></div>
+
+  <p class="narration">送信。</p>
+  <p class="narration">そのあと。</p>
+  <p class="narration">玲央はしばらく画面を見たまま動けなかった。</p>
+
+  <div class="dialogue reo"><div class="speaker">玲央</div><p class="line">「……欲しい」</p></div>
+
+  <p class="narration">結衣が。</p>
+  <p class="narration">自分から来てくれることを。</p>
+  <p class="narration">自分から選んでくれることを。</p>
+
+  <p class="narration">その欲は、消えない。</p>
+  <p class="narration">むしろ、前よりずっと強い。</p>
+
+  <div class="inner strong">だから次は。<br><br>疑うためじゃなく。<br>もっと欲しがるために、ちゃんと聞こう。<br><br>結衣がどこまで俺を選びたいのかを。</div>
+</section>
+
+<section class="ending" id="ending">
+  <div class="ending-mark">◇</div>
+  <h2>REO ROUTE 04 END</h2>
+  <p class="ending-title">優しくしないで</p>
+  <p class="ending-copy">
+    REO03で結衣から初めて向けられた嫉妬。<br>
+    玲央が夢見ていた「選ばれること」は、確かに現実になり始めた。<br><br>
+    けれど幸福になるほど、玲央は疑う。<br><br>
+    結衣は、傷ついた人を放っておけない。<br>
+    玲央が最も愛したその優しさが、今度は最も怖いものになる。<br><br>
+    「それは俺だから？」<br><br>
+    結衣は、“玲央だけが特別”だとは言える。<br>
+    けれど、その特別をまだ恋と呼び切ることはできない。<br><br>
+    玲央は不安から一歩退きかける。<br>
+    それでも、結衣の気持ちを勝手に決めないため、二人で「一日だけ」の距離を選ぶ。<br><br>
+    名前を呼ばれない。<br>
+    一緒に帰らない。<br>
+    触れられない。<br>
+    欲しがられない。<br><br>
+    その一日で結衣が知ったのは――<br>
+    玲央が何も求めてこなくても、自分の方が玲央を求めているという事実だった。<br><br>
+    そして玲央もまた、怖さが消えるのを待つのではなく、<br>
+    結衣の言葉を結衣のものとして受け取ることを選び始める。<br><br>
+    次章。<br>
+    今度は結衣が、自分の「欲しい」をもっとはっきり玲央へ渡していく。
+  </p>
+
+  <p class="next-label">NEXT STORY</p>
+  <p class="next-title">REO ROUTE 05｜DON’T LEAVE ME ― 離れてほしくない</p>
+
+  <div class="ending-actions">
+    <a class="primary" href="05-dont-leave-me.html">次の章を読む</a>
+    <a class="secondary" href="03-dont-look-away.html">REO ROUTE 03へ戻る</a>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html">TOPへ戻る</a><br>
+  REO ROUTE / 04 — DON’T BE KIND TO ME
+</footer>
+</article>
+</main>
+</div>
+</div>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const progress = document.getElementById("progressBar");
+  const themeSelect = document.getElementById("themeSelect");
+  const fontBtn = document.getElementById("fontBtn");
+  const sizeBtns = [...document.querySelectorAll("[data-size]")];
+  const scenes = [...document.querySelectorAll(".scene")];
+  const tocLinks = [...document.querySelectorAll(".toc a[href^='#scene-']")];
+  const currentScene = document.getElementById("currentScene");
+  const SETTINGS_KEY = "otome-reader-settings-v2";
+
+  function loadSettings(){
+    try{
+      const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+      if(s.theme) root.dataset.theme = s.theme;
+      if(s.font) root.dataset.font = s.font;
+      if(s.size) root.dataset.size = s.size;
+    }catch(e){}
+    themeSelect.value = root.dataset.theme || "light";
+    fontBtn.textContent = root.dataset.font === "sans" ? "ゴシック" : "明朝";
+    sizeBtns.forEach(b => b.classList.toggle("active", b.dataset.size === root.dataset.size));
+  }
+
+  function saveSettings(){
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+      theme: root.dataset.theme,
+      font: root.dataset.font,
+      size: root.dataset.size
+    }));
+  }
+
+  themeSelect.addEventListener("change", () => {
+    root.dataset.theme = themeSelect.value;
+    saveSettings();
+  });
+
+  fontBtn.addEventListener("click", () => {
+    root.dataset.font = root.dataset.font === "sans" ? "serif" : "sans";
+    fontBtn.textContent = root.dataset.font === "sans" ? "ゴシック" : "明朝";
+    saveSettings();
+  });
+
+  sizeBtns.forEach(btn => btn.addEventListener("click", () => {
+    root.dataset.size = btn.dataset.size;
+    sizeBtns.forEach(b => b.classList.toggle("active", b === btn));
+    saveSettings();
+  }));
+
+  function updateProgress(){
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? window.scrollY / max : 0;
+    progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if(!visible) return;
+    const id = visible.target.id;
+    const number = id.replace("scene-","");
+    currentScene.textContent = `SCENE ${number}`;
+    tocLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
+  }, {rootMargin:"-25% 0px -60% 0px", threshold:[0,.2,.5]});
+
+  scenes.forEach(scene => observer.observe(scene));
+  window.addEventListener("scroll", updateProgress, {passive:true});
+  window.addEventListener("resize", updateProgress);
+
+  loadSettings();
+  updateProgress();
+})();
+</script>
+</body>
+</html>
